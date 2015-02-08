@@ -1,4 +1,4 @@
-Game = { speed = 1, level = 0 }
+Game = { speed = 1, level = 0, playfield = nil }
 
 function Game:new(speed, level)
     local game = {}
