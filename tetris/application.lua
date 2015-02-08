@@ -50,6 +50,7 @@ end
 
 function Application:endGame()
 
+    self.game = nil
     self.state = ApplicationState.MENU
 
     print("Ended game")
