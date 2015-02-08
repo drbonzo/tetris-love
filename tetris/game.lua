@@ -19,6 +19,10 @@ end
 function buildGame()
 
     local game = Game:new()
+
+    local playfield = Playfield:new(10, 22)
+    game.playfield = playfield
+
     return game
 
 end
