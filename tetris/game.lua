@@ -69,14 +69,34 @@ end
 function Game:update(dt)
     self.timeSinceStart = self.timeSinceStart + dt
 
+    if love.keyboard.isDown('left') then
+        -- FIXME how often can I move left/right
+        self:moveLeft()
+    elseif love.keyboard.isDown('right') then
+        self:moveRight()
+    end
+
     if self.timeSinceStart > self.tickDuration then
         self:processGravity()
         self.timeSinceStart = self.timeSinceStart - self.tickDuration
     end
 end
 
+function Game:moveLeft()
+    -- FIXME check borders
+    self.currentTetromino.x = self.currentTetromino.x - 1
+end
+
+function Game:moveRight()
+    -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
+    self.currentTetromino.x = self.currentTetromino.x + 1
+end
+
 
 function Game:processGravity()
+    self.currentTetromino.y = self.currentTetromino.y + 1
     -- print("Processing")
+    -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
+    -- if movind down soft then stop one step before locking - so gravity can move it next tick
 end
 

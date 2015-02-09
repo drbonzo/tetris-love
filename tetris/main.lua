@@ -63,7 +63,7 @@ function processMainMenu(key)
 
     elseif key == 's' then
 
-        local game = buildGame(5,0)
+        local game = buildGame(1,0)
         local playfield = game.playfield
 
         -- FIXME remove just test code
