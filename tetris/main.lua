@@ -1,3 +1,4 @@
+require 'tetromino'
 require 'playfield'
 require 'game'
 require 'application'
@@ -16,6 +17,9 @@ end
 
 function love.update(dt)
 
+    if application.game then
+        application.game:update(dt)
+    end
 end
 
 function love.keypressed(key, isrepeat)
@@ -120,3 +124,13 @@ function drawGame(game)
 
 end
 
+function buildGame()
+
+    local game = Game:new(5, 0)
+
+    local playfield = Playfield:new(10, 22)
+    game.playfield = playfield
+
+    return game
+
+end

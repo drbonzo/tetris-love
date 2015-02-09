@@ -1,4 +1,10 @@
-Game = { speed = 1, level = 0, playfield = nil }
+Game = { 
+    speed = 1,
+    level = 0,
+    playfield = nil,
+    timeSinceStart = 0,
+    tickDuration = 0
+}
 
 function Game:new(speed, level)
     local game = {}
@@ -7,22 +13,28 @@ function Game:new(speed, level)
 
     game.speed = speed
     game.level = level
+    game.tickDuration = 1.0 / game.speed 
 
     return game
 end
 
--- function Game:showMenu()
---     self.state = gamelicationState.MENU
--- end
---
+function Game:initialize()
+    self.timeSinceStart = 0
+end
 
-function buildGame()
+function Game:update(dt)
+    self.timeSinceStart = self.timeSinceStart + dt
 
-    local game = Game:new()
+    -- speed 1 => tickDuration = 1s
+    -- spped 5 => tickDuration = 1/5 = 0.2s
 
-    local playfield = Playfield:new(10, 22)
-    game.playfield = playfield
+    if self.timeSinceStart > self.tickDuration then
+        self:processGravity()
+        self.timeSinceStart = self.timeSinceStart - self.tickDuration
+    end
+end
 
-    return game
 
+function Game:processGravity()
+    print("Processing")
 end

@@ -30,6 +30,7 @@ function Application:playGame(game)
 
     self.game = game
     self.state = ApplicationState.PLAYING
+    game:initialize()
 
     print("Playing")
 end
