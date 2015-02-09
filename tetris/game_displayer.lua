@@ -35,20 +35,21 @@ function GameDisplayer:displayGame(game)
     local color = nil
 
 
-    local rows = playfield.heightWithVanishZone - 1;
-    local cols = playfield.width - 1
+    local rows = playfield.heightWithVanishZone;
+    local cols = playfield.width
 
     -- border
     love.graphics.setColor(255, 255, 255)
     love.graphics.rectangle( 'line', offsetX - 1 , offsetY - 1, cols * self.blockSize + 1, rows * self.blockSize + 1 )
     
     -- blocks
-    for r = 0, rows do
-        for c = 0, cols do
+    for r = 1, rows do
+        for c = 1, cols do
 
             block = playfield.blocks[r][c]
             if ( not ( block == Playfield.EMPTY_BLOCK ) ) then
                 color = self.colors[block]
+                -- FIXME row 0 is at the bottom! change this
                 love.graphics.setColor(color[1], color[2], color[3])
                 love.graphics.rectangle( 'fill', offsetX + c * self.blockSize, offsetY + r * self.blockSize, self.blockSize, self.blockSize )
             end

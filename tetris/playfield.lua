@@ -5,6 +5,7 @@ Playfield = {
 
     EMPTY_BLOCK = 0,
 
+    -- FIXME move to Tetromino?
     TETROMINO_I = 1,
     TETROMINO_J = 2,
     TETROMINO_L = 3,
@@ -26,10 +27,10 @@ function Playfield:new(width, height)
 
     playfield.blocks = {}
 
-    for r = 0, (playfield.heightWithVanishZone - 1) do
+    for r = 1, (playfield.heightWithVanishZone) do
         -- row
         playfield.blocks[r] = {}
-        for c = 0, width - 1 do
+        for c = 1, width do
             -- cols
             playfield.blocks[r][c] = Playfield.EMPTY_BLOCK
         end

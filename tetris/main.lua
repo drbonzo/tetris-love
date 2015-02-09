@@ -61,19 +61,24 @@ function processMainMenu(key)
 
     elseif key == 's' then
 
-        local game = buildGame(1,0)
+        local game = buildGame(5,0)
         local playfield = game.playfield
 
         -- FIXME remove just test code
-        playfield.blocks[0][0] = Playfield.TETROMINO_I
-        playfield.blocks[0][1] = Playfield.TETROMINO_I
-        playfield.blocks[0][2] = Playfield.TETROMINO_I
-        playfield.blocks[0][3] = Playfield.TETROMINO_I
+        playfield.blocks[8][1] = Playfield.TETROMINO_I
+        playfield.blocks[8][2] = Playfield.TETROMINO_I
+        playfield.blocks[8][3] = Playfield.TETROMINO_I
+        playfield.blocks[8][4] = Playfield.TETROMINO_I
 
         playfield.blocks[10][5] = Playfield.TETROMINO_S
         playfield.blocks[10][6] = Playfield.TETROMINO_S
         playfield.blocks[11][6] = Playfield.TETROMINO_S
         playfield.blocks[11][7] = Playfield.TETROMINO_S
+
+        playfield.blocks[12][7] = Playfield.TETROMINO_Z
+        playfield.blocks[12][8] = Playfield.TETROMINO_Z
+        playfield.blocks[13][8] = Playfield.TETROMINO_Z
+        playfield.blocks[13][9] = Playfield.TETROMINO_Z
 
         application:playGame(game)
 
@@ -124,9 +129,9 @@ function drawGame(game)
 
 end
 
-function buildGame()
+function buildGame(speed, level)
 
-    local game = Game:new(5, 0)
+    local game = Game:new(speed, level)
 
     local playfield = Playfield:new(10, 22)
     game.playfield = playfield
