@@ -1,0 +1,49 @@
+tetromino
+1
+____ __X_ ____ _X__
+XXXX __X_ ____ _X__
+____ __X_ XXXX _X__
+____ __X_ ____ _X__
+end
+tetromino
+2
+X___ _XX_ ____ _X__
+XXX_ _X__ XXX_ _X__
+____ _X__ __X_ XX__
+____ ____ ____ ____
+end
+tetromino
+3
+__X_ _X__ ____ XX__
+XXX_ _X__ XXX_ _X__
+____ _XX_ X___ _X__
+____ ____ ____ ____
+end
+tetromino
+4
+_XX_ _XX_ _XX_ _XX_
+_XX_ _XX_ _XX_ _XX_
+____ ____ ____ ____
+____ ____ ____ ____
+end
+tetromino
+5
+_XX_ _X__ ____ X___
+XX__ _XX_ _XX_ XX__
+____ __X_ XX__ _X__
+____ ____ ____ ____
+end
+tetromino
+6
+_X__ _X__ ____ _X__
+XXX_ _XX_ XXX_ XX__
+____ _X__ _X__ _X__
+____ ____ ____ ____
+end
+tetromino
+7
+XX__ __X_ ____ _X__
+_XX_ _XX_ XX__ XX__
+____ _X__ _XX_ X___
+____ ____ ____ ____
+end
