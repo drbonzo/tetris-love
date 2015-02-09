@@ -6,10 +6,6 @@ Game = {
     tickDuration = 0,
 
     currentTetromino = nil,
-    currentTetrominoBlocks = nil,
-    currentTetrominoRotation = 1,
-    currentTetrominoPosition = { x = 1, y = 12 }, -- FIXME
-
 
     nextTetromino = nil,
     nextTetrominos = {},
@@ -30,6 +26,7 @@ function Game:new(speed, level)
     game.tickDuration = 1.0 / game.speed 
 
     self.tetrominos = Tetrominos:buildTetrominos()
+    self.currentTetromino = CurrentTetromino:new()
     -- FIXME remove: self.tetrominos:printTetromino(self.tetrominos.t1)
 
 
@@ -38,27 +35,12 @@ end
 
 function Game:initialize()
     self.timeSinceStart = 0
+    self:initializeTetrominos()
 end
 
-function Game:update(dt)
-    self.timeSinceStart = self.timeSinceStart + dt
+function Game:initializeTetrominos()
 
-    self:handleTetrominos()
-
-    if self.timeSinceStart > self.tickDuration then
-        self:processGravity()
-        self.timeSinceStart = self.timeSinceStart - self.tickDuration
-    end
-end
-
-
-function Game:processGravity()
-    print("Processing")
-end
-
-function Game:handleTetrominos()
-
-    if table.getn(self.nextTetrominos) < 7 then
+    if table.getn(self.nextTetrominos) < 7 then -- FIXME extract method
         -- push Tetrominos at the end
         table.insert(self.nextTetrominos, Tetromino.TETROMINO_I)
         table.insert(self.nextTetrominos, Tetromino.TETROMINO_J)
@@ -69,26 +51,32 @@ function Game:handleTetrominos()
         table.insert(self.nextTetrominos, Tetromino.TETROMINO_Z)
     end
 
-    if not self.currentTetromino then
-        -- FIXME refactor currentTetromino and other fields
-        self.currentTetromino = self.nextTetrominos[1]
-        self.currentTetrominoRotation = 1
+    if not self.currentTetromino.tetromino then -- FIXME method
 
-        -- print('self.currentTetrominoRotation')
-        -- print(self.currentTetrominoRotation)
+        local tetrominoId = self.nextTetrominos[1]
+        self.currentTetromino:changeTetromino(self.tetrominos:get(tetrominoId), 4, 0) -- FIXME setup position
 
-        local tetromino = self.tetrominos:get(self.currentTetromino)
-        
-        self.currentTetrominoBlocks = tetromino.blocks[self.currentTetrominoRotation] -- FIXME add method for getBlocksForRotation(i)
-        -- print('self.currentTetrominoBlocks');
-        -- print(self.currentTetrominoBlocks)
+        -- self.nextTetromino = self.nextTetrominos[2]
+        -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
 
-        self.nextTetromino = self.nextTetrominos[2]
-        self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
-
-        -- FIXME: table.remove(self.nextTetrominos, 1) -- remove current
+         -- remove used tetromino
+        table.remove(self.nextTetrominos, 1)
     end
 
-    -- FIXME update rotation if needed?
-
 end
+
+
+function Game:update(dt)
+    self.timeSinceStart = self.timeSinceStart + dt
+
+    if self.timeSinceStart > self.tickDuration then
+        self:processGravity()
+        self.timeSinceStart = self.timeSinceStart - self.tickDuration
+    end
+end
+
+
+function Game:processGravity()
+    -- print("Processing")
+end
+

@@ -1,5 +1,6 @@
 require 'tetromino'
 require 'tetrominos'
+require 'current_tetromino'
 require 'playfield'
 require 'game'
 require 'application'

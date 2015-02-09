@@ -43,6 +43,10 @@ function GameDisplayer:displayGame(game)
     love.graphics.rectangle( 'line', offsetX - 1 , offsetY - 1, cols * self.blockSize + 1, rows * self.blockSize + 1 )
     
     -- blocks
+    -- all these '- 1' because we have all indexes from 1, not from 0
+    local ctx = 0
+    local cty = 0
+
     for r = 1, rows do
         for c = 1, cols do
 
@@ -51,32 +55,30 @@ function GameDisplayer:displayGame(game)
                 color = self.colors[block]
                 -- FIXME row 0 is at the bottom! change this
                 love.graphics.setColor(color[1], color[2], color[3])
-                love.graphics.rectangle( 'fill', offsetX + c * self.blockSize, offsetY + r * self.blockSize, self.blockSize, self.blockSize )
+                -- c is counted from 1, not 0
+                ctx = offsetX + (c - 1) * self.blockSize
+                cty = offsetY + (r - 1) * self.blockSize
+                love.graphics.rectangle( 'fill', ctx, cty, self.blockSize, self.blockSize )
             end
         end
     end
 
     -- current block
-    print(game.currentTetromino)
-    print(game.currentTetrominoBlocks)
-    if not (game.currentTetromino == nil) then
 
-        local ctx = 0
-        local cty = 0
-        for r = 1, 4 do
-            for c = 1, 4 do
+    local currentTetromino = game.currentTetromino
+    for r = 1, 4 do
+        for c = 1, 4 do
 
-                block = game.currentTetrominoBlocks[r][c] -- TODO kolor brany jest z bloku a nie z ID tetromino, też działa :)
-                if ( not ( block == Playfield.EMPTY_BLOCK ) ) then
-                    color = self.colors[block]
-                    -- FIXME row 0 is at the bottom! change this
-                    love.graphics.setColor(color[1], color[2], color[3])
-                    -- currentTetrominoPosition
-                    ctx = offsetX + ( game.currentTetrominoPosition.x + c - 1 ) * self.blockSize
-                    cty = offsetY + ( game.currentTetrominoPosition.y + r - 1 ) * self.blockSize
-                    print('x: ' .. ctx .. ', y: ' .. cty )
-                    love.graphics.rectangle( 'fill', ctx, cty, self.blockSize, self.blockSize )
-                end
+            block = currentTetromino.blocks[r][c] -- TODO kolor brany jest z bloku a nie z ID tetromino, też działa :)
+            if ( not ( block == Playfield.EMPTY_BLOCK ) ) then
+                color = self.colors[block]
+                -- FIXME row 0 is at the bottom! change this
+                love.graphics.setColor(color[1], color[2], color[3])
+                -- currentTetromino.x is counted from 1, not from 0
+                -- c is counted from 1, not 0
+                ctx = offsetX + ( currentTetromino.x - 1 + c - 1 ) * self.blockSize
+                cty = offsetY + ( currentTetromino.y - 1 + r - 1 ) * self.blockSize
+                love.graphics.rectangle( 'fill', ctx, cty, self.blockSize, self.blockSize )
             end
         end
     end
