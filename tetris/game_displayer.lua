@@ -55,6 +55,31 @@ function GameDisplayer:displayGame(game)
             end
         end
     end
+
+    -- current block
+    print(game.currentTetromino)
+    print(game.currentTetrominoBlocks)
+    if not (game.currentTetromino == nil) then
+
+        local ctx = 0
+        local cty = 0
+        for r = 1, 4 do
+            for c = 1, 4 do
+
+                block = game.currentTetrominoBlocks[r][c] -- TODO kolor brany jest z bloku a nie z ID tetromino, też działa :)
+                if ( not ( block == Playfield.EMPTY_BLOCK ) ) then
+                    color = self.colors[block]
+                    -- FIXME row 0 is at the bottom! change this
+                    love.graphics.setColor(color[1], color[2], color[3])
+                    -- currentTetrominoPosition
+                    ctx = offsetX + ( game.currentTetrominoPosition.x + c - 1 ) * self.blockSize
+                    cty = offsetY + ( game.currentTetrominoPosition.y + r - 1 ) * self.blockSize
+                    print('x: ' .. ctx .. ', y: ' .. cty )
+                    love.graphics.rectangle( 'fill', ctx, cty, self.blockSize, self.blockSize )
+                end
+            end
+        end
+    end
     -- love.graphics.print(text, 10, 40)
 
 end

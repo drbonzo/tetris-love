@@ -69,7 +69,6 @@ function Tetrominos:buildTetrominos()
 
                 if col < 4 then -- skip separators which come in 5th column, at index 4
                     pixel = (string.sub(line,c,c) == 'X')
-                    -- print("rot: " .. rot .. " line: " .. lineNumber .. " c: " .. c )
                     if pixel then
                         -- col + 1 - change from 0-indexed to 1-indexed
                         tetromino.blocks[rot][lineNumber][col+1] = tetrominoId -- mark pixels in color of the tetromino

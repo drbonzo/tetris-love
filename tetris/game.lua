@@ -8,6 +8,8 @@ Game = {
     currentTetromino = nil,
     currentTetrominoBlocks = nil,
     currentTetrominoRotation = 1,
+    currentTetrominoPosition = { x = 1, y = 12 }, -- FIXME
+
 
     nextTetromino = nil,
     nextTetrominos = {},
@@ -68,16 +70,25 @@ function Game:handleTetrominos()
     end
 
     if not self.currentTetromino then
+        -- FIXME refactor currentTetromino and other fields
         self.currentTetromino = self.nextTetrominos[1]
         self.currentTetrominoRotation = 1
+
+        -- print('self.currentTetrominoRotation')
+        -- print(self.currentTetrominoRotation)
+
+        local tetromino = self.tetrominos:get(self.currentTetromino)
+        
+        self.currentTetrominoBlocks = tetromino.blocks[self.currentTetrominoRotation] -- FIXME add method for getBlocksForRotation(i)
+        -- print('self.currentTetrominoBlocks');
+        -- print(self.currentTetrominoBlocks)
 
         self.nextTetromino = self.nextTetrominos[2]
         self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
 
-        table.remove(self.nextTetrominos, 1) -- remove current
+        -- FIXME: table.remove(self.nextTetrominos, 1) -- remove current
     end
 
     -- FIXME update rotation if needed?
-    self.currentTetrominoBlocks = self.tetrominos:get(self.currentTetromino)[self.currentTetrominoRotation]
 
 end
