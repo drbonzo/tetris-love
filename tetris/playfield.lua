@@ -3,16 +3,7 @@ Playfield = {
     height = 0,
     blocks = nil,
 
-    EMPTY_BLOCK = 0,
-
-    -- FIXME move to Tetromino?
-    TETROMINO_I = 1,
-    TETROMINO_J = 2,
-    TETROMINO_L = 3,
-    TETROMINO_O = 4,
-    TETROMINO_S = 5,
-    TETROMINO_T = 6,
-    TETROMINO_Z = 7,
+    EMPTY_BLOCK = 0
 }
 
 function Playfield:new(width, height)

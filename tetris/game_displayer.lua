@@ -11,13 +11,13 @@ function GameDisplayer:new()
 
     -- init
 
-    gameDisplayer.colors[Playfield.TETROMINO_I] = { 0, 254, 254 }
-    gameDisplayer.colors[Playfield.TETROMINO_J] = { 10, 60, 245 }
-    gameDisplayer.colors[Playfield.TETROMINO_L] = { 255, 145, 51 }
-    gameDisplayer.colors[Playfield.TETROMINO_O] = { 255, 250, 85 }
-    gameDisplayer.colors[Playfield.TETROMINO_S] = { 0, 248, 80 }
-    gameDisplayer.colors[Playfield.TETROMINO_T] = { 152, 35, 140 }
-    gameDisplayer.colors[Playfield.TETROMINO_Z] = { 255, 31, 26 }
+    gameDisplayer.colors[Tetromino.TETROMINO_I] = { 0, 254, 254 }
+    gameDisplayer.colors[Tetromino.TETROMINO_J] = { 10, 60, 245 }
+    gameDisplayer.colors[Tetromino.TETROMINO_L] = { 255, 145, 51 }
+    gameDisplayer.colors[Tetromino.TETROMINO_O] = { 255, 250, 85 }
+    gameDisplayer.colors[Tetromino.TETROMINO_S] = { 0, 248, 80 }
+    gameDisplayer.colors[Tetromino.TETROMINO_T] = { 152, 35, 140 }
+    gameDisplayer.colors[Tetromino.TETROMINO_Z] = { 255, 31, 26 }
 
     return gameDisplayer
 

@@ -65,20 +65,20 @@ function processMainMenu(key)
         local playfield = game.playfield
 
         -- FIXME remove just test code
-        playfield.blocks[8][1] = Playfield.TETROMINO_I
-        playfield.blocks[8][2] = Playfield.TETROMINO_I
-        playfield.blocks[8][3] = Playfield.TETROMINO_I
-        playfield.blocks[8][4] = Playfield.TETROMINO_I
+        playfield.blocks[8][1] = Tetromino.TETROMINO_I
+        playfield.blocks[8][2] = Tetromino.TETROMINO_I
+        playfield.blocks[8][3] = Tetromino.TETROMINO_I
+        playfield.blocks[8][4] = Tetromino.TETROMINO_I
 
-        playfield.blocks[10][5] = Playfield.TETROMINO_S
-        playfield.blocks[10][6] = Playfield.TETROMINO_S
-        playfield.blocks[11][6] = Playfield.TETROMINO_S
-        playfield.blocks[11][7] = Playfield.TETROMINO_S
+        playfield.blocks[10][5] = Tetromino.TETROMINO_S
+        playfield.blocks[10][6] = Tetromino.TETROMINO_S
+        playfield.blocks[11][6] = Tetromino.TETROMINO_S
+        playfield.blocks[11][7] = Tetromino.TETROMINO_S
 
-        playfield.blocks[12][7] = Playfield.TETROMINO_Z
-        playfield.blocks[12][8] = Playfield.TETROMINO_Z
-        playfield.blocks[13][8] = Playfield.TETROMINO_Z
-        playfield.blocks[13][9] = Playfield.TETROMINO_Z
+        playfield.blocks[12][7] = Tetromino.TETROMINO_Z
+        playfield.blocks[12][8] = Tetromino.TETROMINO_Z
+        playfield.blocks[13][8] = Tetromino.TETROMINO_Z
+        playfield.blocks[13][9] = Tetromino.TETROMINO_Z
 
         application:playGame(game)
 
