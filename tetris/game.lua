@@ -19,7 +19,7 @@ function Game:new(speed, level)
     self.__index = self
 
     game.speed = speed
-    game.level = level
+    game.level = level -- FIXME wygeneruj level linii po 2-8 losowych klockow w losowych miejscach
 
     -- speed 1 => tickDuration = 1s
     -- spped 5 => tickDuration = 1/5 = 0.2s

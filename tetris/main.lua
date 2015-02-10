@@ -112,18 +112,37 @@ function love.draw()
     local game = application.game
 
     if application.state == ApplicationState.MENU then
-        -- drawMainMenu(key)
+        
+        drawMainMenu()
+
     elseif application.state == ApplicationState.PLAYING then
 
         drawGame(game)
 
     elseif application.state == ApplicationState.PAUSED then
-        -- drawauseMenu(key)
+        
+        drawPauseMenu()
+
     elseif application.state == ApplicationState.TERMINATED then
         -- nothing
     end
 end
 
+function drawMainMenu()
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("TETRIS", 10, 40)
+    love.graphics.print("[S]tart", 10, 60)
+    love.graphics.print("[Q]uit", 10, 80)
+end
+
+function drawPauseMenu()
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("(PAUSED)", 10, 40)
+    love.graphics.print("un[P]ause", 10, 60)
+    love.graphics.print("[Q]uit to Menu", 10, 80)
+end
 
 function drawGame(game)
 
