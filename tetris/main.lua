@@ -63,7 +63,7 @@ function processMainMenu(key)
 
     elseif key == 's' then
 
-        local game = buildGame(1,0)
+        local game = buildGame(1, 0)
         local playfield = game.playfield
 
         -- FIXME remove just test code
@@ -83,7 +83,6 @@ function processMainMenu(key)
         playfield.blocks[13][9] = Tetromino.TETROMINO_Z
 
         application:playGame(game)
-
     end
 end
 
@@ -112,7 +111,7 @@ function love.draw()
     local game = application.game
 
     if application.state == ApplicationState.MENU then
-        
+
         drawMainMenu()
 
     elseif application.state == ApplicationState.PLAYING then
@@ -120,7 +119,7 @@ function love.draw()
         drawGame(game)
 
     elseif application.state == ApplicationState.PAUSED then
-        
+
         drawPauseMenu()
 
     elseif application.state == ApplicationState.TERMINATED then
@@ -147,7 +146,6 @@ end
 function drawGame(game)
 
     gameDisplayer:displayGame(game)
-
 end
 
 function buildGame(speed, level)
@@ -158,5 +156,4 @@ function buildGame(speed, level)
     game.playfield = playfield
 
     return game
-
 end

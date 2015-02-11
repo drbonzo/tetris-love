@@ -2,7 +2,6 @@ Playfield = {
     width = 0,
     height = 0,
     blocks = nil,
-
     EMPTY_BLOCK = 0
 }
 

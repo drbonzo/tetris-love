@@ -1,15 +1,12 @@
-Game = { 
+Game = {
     speed = 1,
     level = 0,
     playfield = nil,
     timeSinceStart = 0,
     tickDuration = 0,
-
     currentTetromino = nil,
-
     nextTetromino = nil,
     nextTetrominos = {},
-
     tetrominos = nil
 }
 
@@ -23,7 +20,7 @@ function Game:new(speed, level)
 
     -- speed 1 => tickDuration = 1s
     -- spped 5 => tickDuration = 1/5 = 0.2s
-    game.tickDuration = 1.0 / game.speed 
+    game.tickDuration = 1.0 / game.speed
 
     self.tetrominos = Tetrominos:buildTetrominos()
     self.currentTetromino = CurrentTetromino:new()
@@ -59,10 +56,9 @@ function Game:initializeTetrominos()
         -- self.nextTetromino = self.nextTetrominos[2]
         -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
 
-         -- remove used tetromino
+        -- remove used tetromino
         table.remove(self.nextTetrominos, 1)
     end
-
 end
 
 

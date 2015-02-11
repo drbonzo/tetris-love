@@ -25,7 +25,7 @@ function Tetrominos:buildTetrominos()
     local pixel
 
 
-	for line in fileLines do 
+    for line in fileLines do
 
         if line == "tetromino" then
 
@@ -58,7 +58,7 @@ function Tetrominos:buildTetrominos()
                 -- ____ __X_ XXXX _X__
                 -- ____ __X_ ____ _X__
 
-                rot = math.floor(c/5) + 1
+                rot = math.floor(c / 5) + 1
                 --  1  2  3  4  5 - number of character -> rotation index
                 --  6  7  8  9 10
                 -- 11 12 13 14 15
@@ -68,22 +68,20 @@ function Tetrominos:buildTetrominos()
                 col = (c - 1) % 5
 
                 if col < 4 then -- skip separators which come in 5th column, at index 4
-                    pixel = (string.sub(line,c,c) == 'X')
+                    pixel = (string.sub(line, c, c) == 'X')
                     if pixel then
                         -- col + 1 - change from 0-indexed to 1-indexed
-                        tetromino.blocks[rot][lineNumber][col+1] = tetrominoId -- mark pixels in color of the tetromino
+                        tetromino.blocks[rot][lineNumber][col + 1] = tetrominoId -- mark pixels in color of the tetromino
                     end
-
                 end
 
                 -- next character in line
-                c = c + 1 
+                c = c + 1
             end
 
             lineNumber = lineNumber + 1
-
         end
-	end
+    end
 
     return tetrominos
 end
@@ -100,7 +98,7 @@ end
 function Tetrominos:printTetromino(tetromino)
     for rot = 1, 4 do
         print("Rotation: " .. rot)
-        for r = 1,4 do
+        for r = 1, 4 do
             print(tetromino.blocks[rot][r][1] .. tetromino.blocks[rot][r][2] .. tetromino.blocks[rot][r][3] .. tetromino.blocks[rot][r][4])
         end
     end

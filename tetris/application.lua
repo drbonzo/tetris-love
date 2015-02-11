@@ -61,7 +61,6 @@ function buildApplication()
 
     local app = Application:new()
     return app
-
 end
 
 -- INIT -> MENU
