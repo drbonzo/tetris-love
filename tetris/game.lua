@@ -51,7 +51,17 @@ function Game:initializeTetrominos()
     if not self.currentTetromino.tetromino then -- FIXME method
 
         local tetrominoId = self.nextTetrominos[1]
-        self.currentTetromino:changeTetromino(self.tetrominos:get(tetrominoId), 4, 0) -- FIXME setup position
+        local tetrominoStartPosition = {
+            x = 0,
+            y = 0
+        }
+
+        tetrominoStartPosition.y = self.playfield.height - 2
+
+        -- put it at the middle
+        -- as we count from 1 (not from 0): add 1
+        tetrominoStartPosition.x = (self.playfield.width - 4) / 2 + 1
+        self.currentTetromino:changeTetromino(self.tetrominos:get(tetrominoId), tetrominoStartPosition.x, tetrominoStartPosition.y) -- FIXME setup position
 
         -- self.nextTetromino = self.nextTetrominos[2]
         -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
@@ -90,7 +100,7 @@ end
 
 
 function Game:processGravity()
-    self.currentTetromino.y = self.currentTetromino.y + 1
+    self.currentTetromino.y = self.currentTetromino.y - 1
     -- print("Processing")
     -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
     -- if movind down soft then stop one step before locking - so gravity can move it next tick

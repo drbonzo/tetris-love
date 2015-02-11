@@ -27,6 +27,7 @@ function GameDisplayer:displayGame(game)
     love.graphics.setLineStyle('smooth')
 
     local playfield = game.playfield
+    local playfieldHeight = playfield.height
 
     local offsetX = self.blockSize
     local offsetY = self.blockSize
@@ -43,8 +44,6 @@ function GameDisplayer:displayGame(game)
 
     -- blocks
     -- all these '- 1' because we have all indexes from 1, not from 0
-    local ctx
-    local cty
 
     for r = 1, rows do
         for c = 1, cols do
@@ -53,11 +52,8 @@ function GameDisplayer:displayGame(game)
             if (not (block == Playfield.EMPTY_BLOCK)) then
                 color = self.colors[block]
                 -- FIXME row 0 is at the bottom! change this
-                love.graphics.setColor(color[1], color[2], color[3])
-                -- c is counted from 1, not 0
-                ctx = offsetX + (c - 1) * self.blockSize
-                cty = offsetY + (r - 1) * self.blockSize
-                love.graphics.rectangle('fill', ctx, cty, self.blockSize, self.blockSize)
+
+                self:displayBlock(r, c, color[1], color[2], color[3], playfieldHeight)
             end
         end
     end
@@ -65,6 +61,8 @@ function GameDisplayer:displayGame(game)
     -- current block
 
     local currentTetromino = game.currentTetromino
+    local brickX
+    local brickY
     for r = 1, 4 do
         for c = 1, 4 do
 
@@ -72,14 +70,40 @@ function GameDisplayer:displayGame(game)
             if (not (block == Playfield.EMPTY_BLOCK)) then
                 color = self.colors[block]
                 -- FIXME row 0 is at the bottom! change this
-                love.graphics.setColor(color[1], color[2], color[3])
                 -- currentTetromino.x is counted from 1, not from 0
                 -- c is counted from 1, not 0
-                ctx = offsetX + (currentTetromino.x - 1 + c - 1) * self.blockSize
-                cty = offsetY + (currentTetromino.y - 1 + r - 1) * self.blockSize
-                love.graphics.rectangle('fill', ctx, cty, self.blockSize, self.blockSize)
+                -- example: currentTetromino is at [1, 5], and we are examining row and col at [1, 2]
+                -- this means that X is at 1: (x + (col - 1)) = (1 + (1 - 1)) = 1 - this is first column
+                -- and Y is at 6: (y + (row - 1)) = (5 + (2 - 1)) = 5 + 1 = 6
+                brickY = currentTetromino.y + (r - 1)
+                brickX = currentTetromino.x + (c - 1)
+
+                self:displayBlock(brickY, brickX, color[1], color[2], color[3], playfieldHeight)
             end
         end
     end
     -- love.graphics.print(text, 10, 40)
+end
+
+
+--
+-- @param brickY int - Y position of the block, first column has value 1
+-- @param brickX int - X position of the block, first column has value 1
+-- @param red int
+-- @param green int
+-- @param blue int
+-- @param playfieldHeight int
+function GameDisplayer:displayBlock(blockY, blockX, red, green, blue, playfieldHeight)
+
+    -- c and r are counted from 1, not 0
+    local blockOffsetX = 1 + (blockX - 1)
+    -- row number 1 is at the bottom of the screen, last row is at the top of the screen
+    -- top of the screen has lower pixel number
+    local blockOffsetY = playfieldHeight - (blockY - 1)
+
+
+    love.graphics.setColor(red, green, blue)
+    local x = blockOffsetX * self.blockSize
+    local y = blockOffsetY * self.blockSize
+    love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize)
 end
