@@ -6,15 +6,18 @@ require 'game'
 require 'application'
 require 'game_displayer'
 
+local application
+local gameDisplayer
+
 function love.load()
 
-    local application = buildApplication()
+    application = buildApplication()
     application:showMenu()
 
     love.graphics.setBackgroundColor(39, 40, 34) --set the background color to a nice blue
     love.window.setMode(650, 650) --set the window dimensions to 650 by 650
 
-    local gameDisplayer = GameDisplayer:new()
+    gameDisplayer = GameDisplayer:new()
 end
 
 function love.update(dt)
