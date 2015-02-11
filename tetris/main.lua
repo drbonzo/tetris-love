@@ -8,13 +8,13 @@ require 'game_displayer'
 
 function love.load()
 
-    application = buildApplication()
+    local application = buildApplication()
     application:showMenu()
 
     love.graphics.setBackgroundColor(39, 40, 34) --set the background color to a nice blue
     love.window.setMode(650, 650) --set the window dimensions to 650 by 650
 
-    gameDisplayer = GameDisplayer:new()
+    local gameDisplayer = GameDisplayer:new()
 end
 
 function love.update(dt)
@@ -24,7 +24,7 @@ function love.update(dt)
     end
 end
 
-function love.keypressed(key, isrepeat)
+function love.keypressed(key)
 
     if application.state == ApplicationState.MENU then
 

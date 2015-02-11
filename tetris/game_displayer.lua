@@ -31,8 +31,8 @@ function GameDisplayer:displayGame(game)
 
     local offsetX = self.blockSize
     local offsetY = self.blockSize
-    local block = 0
-    local color = nil
+    local block
+    local color
 
 
     local rows = playfield.heightWithVanishZone;
@@ -44,8 +44,8 @@ function GameDisplayer:displayGame(game)
     
     -- blocks
     -- all these '- 1' because we have all indexes from 1, not from 0
-    local ctx = 0
-    local cty = 0
+    local ctx
+    local cty
 
     for r = 1, rows do
         for c = 1, cols do

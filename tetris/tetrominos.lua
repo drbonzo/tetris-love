@@ -13,16 +13,16 @@ function Tetrominos:buildTetrominos()
     setmetatable(tetrominos, self)
     self.__index = self
 
-    local tetromino = nil
-    local tetrominoId = 0
+    local tetromino
+    local tetrominoId
 
     local fileLines = io.lines("resources/tetrominos.txt")
 
     -- line of tetromino
-    local lineNumber = 0
+    local lineNumber
 
     -- whether block ad given point is filled or not
-    local pixel = false
+    local pixel
 
 
 	for line in fileLines do 
@@ -45,9 +45,9 @@ function Tetrominos:buildTetrominos()
 
         elseif string.len(line) == 19 then
 
-            c = 1
-            local rot = 0
-            local col = 0
+            local c = 1
+            local rot
+            local col
             while c <= 19 do
 
                 -- rotation index: 1..4
