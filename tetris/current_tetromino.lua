@@ -25,3 +25,21 @@ function CurrentTetromino:changeTetromino(tetromino, x, y)
     self.x = x
     self.y = y
 end
+
+function CurrentTetromino:rotateClockWise()
+    local rotationId = self.rotationId - 1 -- normalize
+    rotationId = (rotationId + 1) % 4
+    self:updateRotation(rotationId)
+end
+
+function CurrentTetromino:rotateCounterClockWise()
+    local rotationId = self.rotationId - 1 -- normalize
+    rotationId = (rotationId + 4 - 1) % 4 -- +4 makes rotationId always positive
+    self:updateRotation(rotationId)
+end
+
+
+function CurrentTetromino:updateRotation(rotationId)
+    self.rotationId = rotationId + 1 -- denormalize
+    self.blocks = self.tetromino.blocks[self.rotationId]
+end

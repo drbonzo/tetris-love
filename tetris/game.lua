@@ -80,6 +80,10 @@ function Game:update(dt)
         self:moveLeft()
     elseif love.keyboard.isDown('right') then
         self:moveRight()
+    elseif love.keyboard.isDown('down') then
+        self:moveDown()
+    elseif love.keyboard.isDown('up') then
+        self:rotateClockWise()
     end
 
     if self.timeSinceStart > self.tickDuration then
@@ -96,6 +100,21 @@ end
 function Game:moveRight()
     -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
     self.currentTetromino.x = self.currentTetromino.x + 1
+end
+
+function Game:moveDown()
+    -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
+    self.currentTetromino.y = self.currentTetromino.y - 1
+end
+
+function Game:rotateClockWise()
+    -- FIXME check if we can rotate
+    self.currentTetromino:rotateClockWise()
+end
+
+function Game:rotateCounterClockWise()
+    -- FIXME check if we can rotate
+    self.currentTetromino:rotateCounterClockWise()
 end
 
 
