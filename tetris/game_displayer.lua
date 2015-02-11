@@ -35,7 +35,7 @@ function GameDisplayer:displayGame(game)
     local color
 
 
-    local rows = playfield.heightWithVanishZone;
+    local rows = playfield.height;
     local cols = playfield.width
 
     -- border
