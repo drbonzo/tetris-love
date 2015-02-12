@@ -18,6 +18,7 @@ function GameDisplayer:new()
     gameDisplayer.colors[Tetromino.TETROMINO_S] = { 0, 248, 80 }
     gameDisplayer.colors[Tetromino.TETROMINO_T] = { 152, 35, 140 }
     gameDisplayer.colors[Tetromino.TETROMINO_Z] = { 255, 31, 26 }
+    gameDisplayer.colors[Playfield.WALL] = { 240, 240, 240 }
 
     return gameDisplayer
 end
@@ -28,6 +29,7 @@ function GameDisplayer:displayGame(game)
 
     local playfield = game.playfield
     local playfieldHeight = playfield.height
+    local playfieldWidth = playfield.width
 
     local offsetX = self.blockSize
     local offsetY = self.blockSize
@@ -35,9 +37,9 @@ function GameDisplayer:displayGame(game)
     local color
 
 
-    local rows = playfield.height;
-    local cols = playfield.width
-
+    local rows = playfieldHeight + 1 -- TODO DRY
+    local cols = playfieldWidth + 2 -- TODO DRY
+    -- FIXME drawing new playfield
     -- border
     love.graphics.setColor(255, 255, 255)
     love.graphics.rectangle('line', offsetX - 1, offsetY - 1, cols * self.blockSize + 1, rows * self.blockSize + 1)
@@ -95,11 +97,13 @@ end
 -- @param playfieldHeight int
 function GameDisplayer:displayBlock(blockY, blockX, red, green, blue, playfieldHeight)
 
+    -- FIXME drawing playfield
     -- c and r are counted from 1, not 0
     local blockOffsetX = 1 + (blockX - 1)
     -- row number 1 is at the bottom of the screen, last row is at the top of the screen
     -- top of the screen has lower pixel number
-    local blockOffsetY = playfieldHeight - (blockY - 1)
+    -- "+1" for wall row - so the playfield is a little bit higher
+    local blockOffsetY = playfieldHeight + 1 - (blockY - 1)
 
 
     love.graphics.setColor(red, green, blue)
