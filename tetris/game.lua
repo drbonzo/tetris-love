@@ -91,25 +91,19 @@ function Game:update(dt)
 end
 
 function Game:moveLeft()
-    -- FIXME check borders first then check time
-
-    if self.actionTimers:canPerformMove() then
+    if self:canMoveTo(self.currentTetromino, -1, 0, 0) and self.actionTimers:canPerformMove() then
         self.currentTetromino.x = self.currentTetromino.x - 1
     end
 end
 
 function Game:moveRight()
-    -- FIXME check borders first then check time
-
-    if self.actionTimers:canPerformMove() then
+    if self:canMoveTo(self.currentTetromino, 1, 0, 0) and self.actionTimers:canPerformMove() then
         self.currentTetromino.x = self.currentTetromino.x + 1
     end
 end
 
 function Game:softDrop()
-    -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
-
-    if self.actionTimers:canPerformSoftDrop() then
+    if self:canMoveTo(self.currentTetromino, 0, -1, 0) and self.actionTimers:canPerformSoftDrop() then
         self.currentTetromino.y = self.currentTetromino.y - 1
     end
 end
@@ -121,17 +115,28 @@ function Game:hardDrop()
 end
 
 function Game:rotateClockWise()
-    -- FIXME check if we can rotate
-    if self.actionTimers:canPerformRotation() then
+    if self:canMoveTo(self.currentTetromino, 0, 0, 1) and self.actionTimers:canPerformRotation() then
         self.currentTetromino:rotateClockWise()
     end
 end
 
 function Game:rotateCounterClockWise()
-    -- FIXME check if we can rotate
-    if self.actionTimers:canPerformRotation() then
+    if self:canMoveTo(self.currentTetromino, 0, 0, -1) and self.actionTimers:canPerformRotation() then
         self.currentTetromino:rotateCounterClockWise()
     end
+end
+
+-- @param currentTetromino
+-- @param dx change in X
+-- @param dy change in Y
+-- @param dr change in rotation (+1 - next CW, -1 next CCW)
+-- @return bool
+function Game:canMoveTo(currentTetromino, dx, dy, dr)
+    local x = currentTetromino.x + dx
+    local y = currentTetromino.y + dy
+    local blocks = currentTetromino:getBlocksForRotationChange(dr)
+
+    return true
 end
 
 
