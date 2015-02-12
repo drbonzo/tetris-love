@@ -2,6 +2,7 @@ require 'tetromino'
 require 'tetrominos'
 require 'current_tetromino'
 require 'playfield'
+require 'action_timers'
 require 'game'
 require 'application'
 require 'game_displayer'
@@ -22,9 +23,7 @@ end
 
 function love.update(dt)
 
-    if application.game then
-        application.game:update(dt)
-    end
+    application:update(dt)
 end
 
 function love.keypressed(key)
@@ -45,8 +44,6 @@ function love.keypressed(key)
         -- nothing
     end
 
-
-    -- TODO process game
 end
 
 function love.quit()
@@ -147,16 +144,19 @@ function drawPauseMenu()
 end
 
 function drawGame(game)
-
     gameDisplayer:displayGame(game)
+end
+
+function buildApplication()
+
+    local app = Application:new()
+    return app
 end
 
 function buildGame(speed, level)
 
-    local game = Game:new(speed, level)
-
     local playfield = Playfield:new(10, 22)
-    game.playfield = playfield
+    local game = Game:new(playfield, speed, level)
 
     return game
 end

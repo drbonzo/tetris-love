@@ -57,10 +57,10 @@ function Application:endGame()
     print("Ended game")
 end
 
-function buildApplication()
-
-    local app = Application:new()
-    return app
+function Application:update(dt)
+    if self.game then
+        self.game:update(dt)
+    end
 end
 
 -- INIT -> MENU

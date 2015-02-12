@@ -2,25 +2,23 @@ Game = {
     speed = 1,
     level = 0,
     playfield = nil,
-    timeSinceStart = 0,
-    tickDuration = 0,
     currentTetromino = nil,
     nextTetromino = nil,
     nextTetrominos = {},
-    tetrominos = nil
+    tetrominos = nil,
+    actionTimers = nil
 }
 
-function Game:new(speed, level)
+function Game:new(playfield, speed, level)
     local game = {}
     setmetatable(game, self)
     self.__index = self
 
+    game.playfield = playfield
     game.speed = speed
     game.level = level -- FIXME wygeneruj level linii po 2-8 losowych klockow w losowych miejscach
+    game.actionTimers = ActionTimers:new(speed)
 
-    -- speed 1 => tickDuration = 1s
-    -- spped 5 => tickDuration = 1/5 = 0.2s
-    game.tickDuration = 1.0 / game.speed
 
     self.tetrominos = Tetrominos:buildTetrominos()
     self.currentTetromino = CurrentTetromino:new()
@@ -31,7 +29,6 @@ function Game:new(speed, level)
 end
 
 function Game:initialize()
-    self.timeSinceStart = 0
     self:initializeTetrominos()
 end
 
@@ -73,7 +70,7 @@ end
 
 
 function Game:update(dt)
-    self.timeSinceStart = self.timeSinceStart + dt
+    self.actionTimers:update(dt)
 
     if love.keyboard.isDown('left') then
         -- FIXME how often can I move left/right
@@ -88,25 +85,33 @@ function Game:update(dt)
         self:hardDrop()
     end
 
-    if self.timeSinceStart > self.tickDuration then
+    if self.actionTimers:canUpdateGravity() then
         self:processGravity()
-        self.timeSinceStart = self.timeSinceStart - self.tickDuration
     end
 end
 
 function Game:moveLeft()
-    -- FIXME check borders
-    self.currentTetromino.x = self.currentTetromino.x - 1
+    -- FIXME check borders first then check time
+
+    if self.actionTimers:canPerformMove() then
+        self.currentTetromino.x = self.currentTetromino.x - 1
+    end
 end
 
 function Game:moveRight()
-    -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
-    self.currentTetromino.x = self.currentTetromino.x + 1
+    -- FIXME check borders first then check time
+
+    if self.actionTimers:canPerformMove() then
+        self.currentTetromino.x = self.currentTetromino.x + 1
+    end
 end
 
 function Game:softDrop()
     -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
-    self.currentTetromino.y = 0 -- FIXME find this position
+
+    if self.actionTimers:canPerformSoftDrop() then
+        self.currentTetromino.y = self.currentTetromino.y - 1
+    end
 end
 
 function Game:hardDrop()
@@ -117,12 +122,16 @@ end
 
 function Game:rotateClockWise()
     -- FIXME check if we can rotate
-    self.currentTetromino:rotateClockWise()
+    if self.actionTimers:canPerformRotation() then
+        self.currentTetromino:rotateClockWise()
+    end
 end
 
 function Game:rotateCounterClockWise()
     -- FIXME check if we can rotate
-    self.currentTetromino:rotateCounterClockWise()
+    if self.actionTimers:canPerformRotation() then
+        self.currentTetromino:rotateCounterClockWise()
+    end
 end
 
 
