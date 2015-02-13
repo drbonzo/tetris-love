@@ -18,12 +18,14 @@ function Playfield:new(width, height)
 
     playfield.blocks = {}
 
+    -- W..........W - 1
+    -- W..........W - 2
+    -- W..........W - 3
+    -- W..........W ...
     -- W..........W
-    -- W..........W
-    -- W..........W
-    -- W..........W
-    -- W..........W
-    -- WWWWWWWWWWWW
+    -- WWWWWWWWWWWW - h+1
+    -- ^^^        ^
+    -- 123.......(w+2)
     --
     -- where:
     -- W - wall
@@ -39,13 +41,19 @@ function Playfield:new(width, height)
         playfield.blocks[r] = {}
         for c = 1, w do
             -- cols
-            if (r == 1) then
+
+            if (r == h) then
+
                 -- bottom wall
                 playfield.blocks[r][c] = Playfield.WALL
-            elseif (c == 1 or c == width + 2) then
+
+            elseif (c == 1 or c == w) then
+
                 -- left and right wall
                 playfield.blocks[r][c] = Playfield.WALL
+
             else
+
                 playfield.blocks[r][c] = Playfield.EMPTY_BLOCK
             end
         end
