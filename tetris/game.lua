@@ -68,7 +68,6 @@ function Game:initializeTetrominos()
     end
 end
 
-
 function Game:update(dt)
     self.actionTimers:update(dt)
 
@@ -165,10 +164,13 @@ function Game:processGravity()
     if self:canMoveTo(self.currentTetromino, 0, 1, 0) then
         self.currentTetromino.y = self.currentTetromino.y + 1
     else
-        -- FIXME stop this block
+        self.playfield:absorbTetromino(self.currentTetromino)
+        -- FIXME refactor
+        self.currentTetromino.tetromino = nil
+        self:initializeTetrominos() -- FIXME rename
+        -- FIXME apply score
+
+        -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
     end
-    -- print("Processing")
-    -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
-    -- if movind down soft then stop one step before locking - so gravity can move it next tick
 end
 
