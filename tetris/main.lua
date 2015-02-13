@@ -1,9 +1,11 @@
+require 'debug_module'
 require 'tetromino'
 require 'tetrominos'
 require 'current_tetromino'
 require 'playfield'
 require 'action_timers'
 require 'game'
+require 'game_builder'
 require 'application'
 require 'game_displayer'
 
@@ -43,7 +45,6 @@ function love.keypressed(key)
     elseif application.state == ApplicationState.TERMINATED then
         -- nothing
     end
-
 end
 
 function love.quit()
@@ -64,23 +65,10 @@ function processMainMenu(key)
     elseif key == 's' then
 
         local game = buildGame(1, 0)
-        local playfield = game.playfield
 
-        -- FIXME remove just test code
-        playfield.blocks[8][2] = Tetromino.TETROMINO_I
-        playfield.blocks[8][3] = Tetromino.TETROMINO_I
-        playfield.blocks[8][4] = Tetromino.TETROMINO_I
-        playfield.blocks[8][5] = Tetromino.TETROMINO_I
-
-        playfield.blocks[10][5] = Tetromino.TETROMINO_S
-        playfield.blocks[10][6] = Tetromino.TETROMINO_S
-        playfield.blocks[11][6] = Tetromino.TETROMINO_S
-        playfield.blocks[11][7] = Tetromino.TETROMINO_S
-
-        playfield.blocks[12][7] = Tetromino.TETROMINO_Z
-        playfield.blocks[12][8] = Tetromino.TETROMINO_Z
-        playfield.blocks[13][8] = Tetromino.TETROMINO_Z
-        playfield.blocks[13][9] = Tetromino.TETROMINO_Z
+        -- FIXME remove
+        local debugModule = DebugModule:new()
+        debugModule:fillPlayfieldWithGarbage(game)
 
         application:playGame(game)
     end
@@ -155,8 +143,10 @@ end
 
 function buildGame(speed, level)
 
-    local playfield = Playfield:new(10, 22)
-    local game = Game:new(playfield, speed, level)
+    local gameBuilder = GameBuilder:new()
+    local width = 10
+    local height = 22
+    local game = gameBuilder:buildGame(width, height, speed, level)
 
     return game
 end
