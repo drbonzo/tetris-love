@@ -37,7 +37,7 @@ function GameDisplayer:displayGame(game)
     local color
 
 
-    local rows = playfieldHeight + 1 -- TODO DRY
+    local rows = playfieldHeight + 2 + 1 -- TODO DRY
     local cols = playfieldWidth + 2 -- TODO DRY
     -- FIXME drawing new playfield
     -- border
@@ -55,7 +55,7 @@ function GameDisplayer:displayGame(game)
                 color = self.colors[block]
                 -- FIXME row 0 is at the bottom! change this
 
-                self:displayBlock(r, c, color[1], color[2], color[3], playfieldHeight)
+                self:displayBlock(r, c, color[1], color[2], color[3])
             end
         end
     end
@@ -80,7 +80,7 @@ function GameDisplayer:displayGame(game)
                 brickY = currentTetromino.y + (r - 1)
                 brickX = currentTetromino.x + (c - 1)
 
-                self:displayBlock(brickY, brickX, color[1], color[2], color[3], playfieldHeight)
+                self:displayBlock(brickY, brickX, color[1], color[2], color[3])
             end
         end
     end
@@ -94,8 +94,7 @@ end
 -- @param red int
 -- @param green int
 -- @param blue int
--- @param playfieldHeight int
-function GameDisplayer:displayBlock(blockY, blockX, red, green, blue, playfieldHeight)
+function GameDisplayer:displayBlock(blockY, blockX, red, green, blue)
 
     -- FIXME drawing playfield
     -- c and r are counted from 1, not 0
@@ -103,7 +102,7 @@ function GameDisplayer:displayBlock(blockY, blockX, red, green, blue, playfieldH
     -- row number 1 is at the bottom of the screen, last row is at the top of the screen
     -- top of the screen has lower pixel number
     -- "+1" for wall row - so the playfield is a little bit higher
-    local blockOffsetY = playfieldHeight + 1 - (blockY - 1)
+    local blockOffsetY = 1 + (blockY - 1)
 
 
     love.graphics.setColor(red, green, blue)

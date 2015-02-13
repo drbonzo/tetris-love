@@ -53,7 +53,7 @@ function Game:initializeTetrominos()
             y = 0
         }
 
-        tetrominoStartPosition.y = self.playfield.height - 2
+        tetrominoStartPosition.y = 3 -- 3rd from the top
 
         -- put it at the middle
         -- as we count from 1 (not from 0): add 1
@@ -104,7 +104,7 @@ end
 
 function Game:softDrop()
     if self:canMoveTo(self.currentTetromino, 0, -1, 0) and self.actionTimers:canPerformSoftDrop() then
-        self.currentTetromino.y = self.currentTetromino.y - 1
+        self.currentTetromino.y = self.currentTetromino.y + 1
     end
 end
 
@@ -132,16 +132,20 @@ end
 -- @param dr change in rotation (+1 - next CW, -1 next CCW)
 -- @return bool
 function Game:canMoveTo(currentTetromino, dx, dy, dr)
-    local x = currentTetromino.x + dx
-    local y = currentTetromino.y + dy
+    local pos_x = currentTetromino.x + dx
+    local pos_y = currentTetromino.y + dy
     local blocks = currentTetromino:getBlocksForRotationChange(dr)
 
+    -- x = pos_x + c - 1
+    -- y = pos_y + r - 1
+    -- czy pod polem (x, y) jest jakis klocek != 0?
+    
     return true
 end
 
 
 function Game:processGravity()
-    self.currentTetromino.y = self.currentTetromino.y - 1
+    self.currentTetromino.y = self.currentTetromino.y + 1
     -- print("Processing")
     -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
     -- if movind down soft then stop one step before locking - so gravity can move it next tick
