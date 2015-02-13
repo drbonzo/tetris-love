@@ -102,8 +102,15 @@ function Game:moveRight()
 end
 
 function Game:softDrop()
-    if self:canMoveTo(self.currentTetromino, 0, 1, 0) and self.actionTimers:canPerformSoftDrop() then
-        self.currentTetromino.y = self.currentTetromino.y + 1
+
+    if self.actionTimers:canPerformSoftDrop() then
+
+        if self:canMoveTo(self.currentTetromino, 0, 1, 0) then
+            self.currentTetromino.y = self.currentTetromino.y + 1
+        else
+            -- block cannot move down - so lock it
+            self:lockTetromino()
+        end
     end
 end
 
@@ -166,13 +173,16 @@ function Game:processGravity()
     if self:canMoveTo(self.currentTetromino, 0, 1, 0) then
         self.currentTetromino.y = self.currentTetromino.y + 1
     else
-        self.playfield:absorbTetromino(self.currentTetromino)
-        -- FIXME refactor
-        self.currentTetromino.tetromino = nil
-        self:initializeTetrominos() -- FIXME rename
-        -- FIXME apply score
-
-        -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
+        self:lockTetromino()
     end
+end
+
+function Game:lockTetromino()
+    self.playfield:absorbTetromino(self.currentTetromino)
+    -- FIXME refactor
+    self.currentTetromino.tetromino = nil
+    self:initializeTetrominos() -- FIXME rename
+    -- FIXME apply score
+    -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
 end
 
