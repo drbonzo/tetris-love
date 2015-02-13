@@ -67,10 +67,10 @@ function processMainMenu(key)
         local playfield = game.playfield
 
         -- FIXME remove just test code
-        playfield.blocks[8][1] = Tetromino.TETROMINO_I
         playfield.blocks[8][2] = Tetromino.TETROMINO_I
         playfield.blocks[8][3] = Tetromino.TETROMINO_I
         playfield.blocks[8][4] = Tetromino.TETROMINO_I
+        playfield.blocks[8][5] = Tetromino.TETROMINO_I
 
         playfield.blocks[10][5] = Tetromino.TETROMINO_S
         playfield.blocks[10][6] = Tetromino.TETROMINO_S
