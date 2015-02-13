@@ -136,8 +136,6 @@ function Game:canMoveTo(currentTetromino, dx, dy, dr)
     local tetrominoBlocks = currentTetromino:getBlocksForRotationChange(dr)
     local x
     local y
-    local playfieldHasBlock
-    local tetrominoHasBlock
 
     for r = 1, 4 do
 
@@ -146,11 +144,15 @@ function Game:canMoveTo(currentTetromino, dx, dy, dr)
             x = pos_x + c - 1
             y = pos_y + r - 1
 
-            playfieldHasBlock = (self.playfield.blocks[y][x] ~= Playfield.EMPTY_BLOCK)
-            tetrominoHasBlock = (tetrominoBlocks[r][c] ~= Playfield.EMPTY_BLOCK)
+            local result = self.playfield:tetrominoBlockOverlapsWithPlayfieldBlock(tetrominoBlocks[r][c], x, y)
 
-            if (playfieldHasBlock and tetrominoHasBlock) then
+            if result == nil then
+                -- continue - this was out of range
+            elseif result then
                 return false
+            else
+                -- false
+                -- check next block
             end
         end
     end

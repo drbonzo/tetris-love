@@ -80,3 +80,25 @@ function Playfield:absorbTetromino(currentTetromino)
         end
     end
 end
+
+-- @return {mixed}
+-- true: overlaps
+-- false: does not overlap
+-- nil: check next position - [x,y] is out of range
+function Playfield:tetrominoBlockOverlapsWithPlayfieldBlock(tetrominoBlock, x, y)
+
+    -- check if position is inside the playfield
+    if ((x < 1) or (x > self.width + 2)) then -- TODO DRY
+        return nil
+    end
+
+    if ((y < 1) or (y > self.height + 3)) then -- TODO DRY
+        return nil
+    end
+
+    local tetrominoHasBlock = (tetrominoBlock ~= Playfield.EMPTY_BLOCK)
+    local playfieldHasBlock = (self.blocks[y][x] ~= Playfield.EMPTY_BLOCK)
+
+    local overlaps = (playfieldHasBlock and tetrominoHasBlock)
+    return overlaps
+end
