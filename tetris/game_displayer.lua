@@ -18,6 +18,7 @@ function GameDisplayer:new()
     gameDisplayer.colors[Tetromino.TETROMINO_S] = { 0, 248, 80 }
     gameDisplayer.colors[Tetromino.TETROMINO_T] = { 152, 35, 140 }
     gameDisplayer.colors[Tetromino.TETROMINO_Z] = { 255, 31, 26 }
+    gameDisplayer.colors[Playfield.GARBAGE_BLOCK] = { 128, 128, 128 }
     gameDisplayer.colors[Playfield.WALL] = { 240, 240, 240 }
 
     return gameDisplayer

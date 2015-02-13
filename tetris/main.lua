@@ -64,7 +64,7 @@ function processMainMenu(key)
 
     elseif key == 's' then
 
-        local game = buildGame(1, 0)
+        local game = buildGame(1, 3)
 
         -- FIXME remove
         local debugModule = DebugModule:new()

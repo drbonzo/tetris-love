@@ -3,6 +3,7 @@ Playfield = {
     height = 0,
     blocks = nil,
     EMPTY_BLOCK = 0,
+    GARBAGE_BLOCK = 50,
     WALL = 99
 }
 
