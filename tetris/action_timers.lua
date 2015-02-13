@@ -67,6 +67,9 @@ end
 function ActionTimers:canPerformSoftDrop()
     if self.softDropTimeSinceStart > self.softDropDelay then
         self.softDropTimeSinceStart = 0
+        -- as we have just dropped the tetromino
+        -- reset time for automatic tetromino drops (via gravity)
+        self.gravityTimeSinceStart = 0
         return true
     else
         return false
