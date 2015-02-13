@@ -103,7 +103,7 @@ function Game:moveRight()
 end
 
 function Game:softDrop()
-    if self:canMoveTo(self.currentTetromino, 0, -1, 0) and self.actionTimers:canPerformSoftDrop() then
+    if self:canMoveTo(self.currentTetromino, 0, 1, 0) and self.actionTimers:canPerformSoftDrop() then
         self.currentTetromino.y = self.currentTetromino.y + 1
     end
 end
@@ -134,12 +134,28 @@ end
 function Game:canMoveTo(currentTetromino, dx, dy, dr)
     local pos_x = currentTetromino.x + dx
     local pos_y = currentTetromino.y + dy
-    local blocks = currentTetromino:getBlocksForRotationChange(dr)
+    local tetrominoBlocks = currentTetromino:getBlocksForRotationChange(dr)
+    local x
+    local y
+    local playfieldHasBlock
+    local tetrominoHasBlock
 
-    -- x = pos_x + c - 1
-    -- y = pos_y + r - 1
-    -- czy pod polem (x, y) jest jakis klocek != 0?
-    
+    for r = 1, 4 do
+
+        for c = 1, 4 do
+
+            x = pos_x + c - 1
+            y = pos_y + r - 1
+
+            playfieldHasBlock = (not (self.playfield.blocks[y][x] == Playfield.EMPTY_BLOCK))
+            tetrominoHasBlock = (not (tetrominoBlocks[r][c] == Playfield.EMPTY_BLOCK))
+
+            if (playfieldHasBlock and tetrominoHasBlock) then
+                return false
+            end
+        end
+    end
+
     return true
 end
 
