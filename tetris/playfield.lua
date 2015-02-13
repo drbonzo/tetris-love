@@ -74,7 +74,7 @@ function Playfield:absorbTetromino(currentTetromino)
             block_x = currentTetromino.x + c - 1
             block_y = currentTetromino.y + r - 1
 
-            if (not currentTetromino.blocks[r][c] == self.EMPTY_BLOCK) then
+            if (currentTetromino.blocks[r][c] ~= self.EMPTY_BLOCK) then
                 self.blocks[block_y][block_x] = currentTetromino.blocks[r][c]
             end
         end

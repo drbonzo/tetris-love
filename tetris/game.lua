@@ -146,8 +146,8 @@ function Game:canMoveTo(currentTetromino, dx, dy, dr)
             x = pos_x + c - 1
             y = pos_y + r - 1
 
-            playfieldHasBlock = (not (self.playfield.blocks[y][x] == Playfield.EMPTY_BLOCK))
-            tetrominoHasBlock = (not (tetrominoBlocks[r][c] == Playfield.EMPTY_BLOCK))
+            playfieldHasBlock = (self.playfield.blocks[y][x] ~= Playfield.EMPTY_BLOCK)
+            tetrominoHasBlock = (tetrominoBlocks[r][c] ~= Playfield.EMPTY_BLOCK)
 
             if (playfieldHasBlock and tetrominoHasBlock) then
                 return false

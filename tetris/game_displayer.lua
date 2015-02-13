@@ -51,7 +51,7 @@ function GameDisplayer:displayGame(game)
         for c = 1, cols do
 
             block = playfield.blocks[r][c]
-            if (not (block == Playfield.EMPTY_BLOCK)) then
+            if (block ~= Playfield.EMPTY_BLOCK) then
                 color = self.colors[block]
                 -- FIXME row 0 is at the bottom! change this
 
@@ -69,7 +69,7 @@ function GameDisplayer:displayGame(game)
         for c = 1, 4 do
 
             block = currentTetromino.blocks[r][c] -- TODO kolor brany jest z bloku a nie z ID tetromino, też działa :)
-            if (not (block == Playfield.EMPTY_BLOCK)) then
+            if (block ~= Playfield.EMPTY_BLOCK) then
                 color = self.colors[block]
                 -- FIXME row 0 is at the bottom! change this
                 -- currentTetromino.x is counted from 1, not from 0
