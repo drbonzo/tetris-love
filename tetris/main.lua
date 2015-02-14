@@ -14,6 +14,8 @@ local gameDisplayer
 
 function love.load()
 
+    math.randomseed(os.time())
+
     application = buildApplication()
     application:showMenu()
 
