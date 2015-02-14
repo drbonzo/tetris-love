@@ -30,10 +30,10 @@ function Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
 end
 
 function Game:initialize()
-    self:initializeTetrominos()
+    self:pickNextTetrominos()
 end
 
-function Game:initializeTetrominos()
+function Game:pickNextTetrominos()
 
     local tetrominoId = self.tetrominoGenerator:getAndRemoveFirstTetrominoId()
     -- put it at the middle
@@ -153,10 +153,10 @@ function Game:canMoveTo(currentTetromino, dx, dy, dr)
     return true
 end
 
-
 function Game:processGravity()
 
     if self:canMoveTo(self.currentTetromino, 0, 1, 0) then
+        -- move down
         self.currentTetromino.y = self.currentTetromino.y + 1
     else
         self:lockTetromino()
@@ -165,10 +165,7 @@ end
 
 function Game:lockTetromino()
     self.playfield:absorbTetromino(self.currentTetromino)
-    -- FIXME refactor
-    self.currentTetromino.tetromino = nil
-    self:initializeTetrominos() -- FIXME rename
-    -- FIXME apply score
-    -- if tetromino was meant to go down, but there is no place for it to go down - lock it and change current tetromino
+    local linesCleared = self.playfield:applyScoring()
+    self.scoring:applyScoreForLinesCleared(linesCleared)
+    self:pickNextTetrominos()
 end
-

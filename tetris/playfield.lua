@@ -67,7 +67,6 @@ end
 -- @param currentTetromino {CurrentTetromino}
 function Playfield:absorbTetromino(currentTetromino)
 
-    print("Absorbing")
     local block_x
     local block_y
     for r = 1, 4 do
@@ -102,4 +101,69 @@ function Playfield:tetrominoBlockOverlapsWithPlayfieldBlock(tetrominoBlock, x, y
 
     local overlaps = (playfieldHasBlock and tetrominoHasBlock)
     return overlaps
+end
+
+
+function Playfield:applyScoring()
+
+    local linesCleared = 0
+    local lineWidth = self.width
+
+    while true do
+        -- process lines from bottom to top
+        -- until we find no more filled lines
+        -- "-1" dont process wall
+
+        local anyFullLineFound = false
+
+        for r = self.heightWithVanishZone, 1, -1 do
+            local blocksFound = 0
+
+            -- "width + 1" without right wall
+            for c = 2, self.width + 1 do
+
+                -- no need to check for walls - loops took care of this
+                if self.blocks[r][c] ~= Playfield.EMPTY_BLOCK then
+                    blocksFound = blocksFound + 1
+                end
+            end
+
+            -- line is filled when all blocks in a line are not empty
+
+            local currentLineIsFilled = (blocksFound == lineWidth)
+            if currentLineIsFilled then
+                anyFullLineFound = true
+                linesCleared = linesCleared + 1
+
+                self:dropBlocksFromLineUpwards(r)
+            end
+        end
+
+
+        -- process playfield until we find no more filled lines
+        if anyFullLineFound == false then
+            break
+        end
+    end
+
+    return linesCleared
+end
+
+function Playfield:dropBlocksFromLineUpwards(lineNumber)
+
+    -- from selected line to top:
+    for r = lineNumber, 1, -1 do
+
+        -- "width + 1" without right wall
+        for c = 2, self.width + 1 do
+
+            if r == 1 then
+                -- top row = empty it
+                self.blocks[r][c] = Playfield.EMPTY_BLOCK
+            else
+                -- copy blocks to line lower
+                self.blocks[r][c] = self.blocks[r - 1][c]
+            end
+        end
+    end
 end
