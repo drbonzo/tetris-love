@@ -85,7 +85,10 @@ function GameDisplayer:displayGame(game)
             end
         end
     end
-    -- love.graphics.print(text, 10, 40)
+
+    -- print score
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Score: " .. game.scoring:getScore(), (cols + 2) * self.blockSize + 10, self.blockSize)
 end
 
 

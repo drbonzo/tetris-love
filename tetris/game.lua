@@ -6,6 +6,7 @@ Game = {
     currentTetromino = nil,
     nextTetromino = nil,
     tetrominos = nil,
+    scoring = nil,
     actionTimers = nil
 }
 
@@ -20,7 +21,7 @@ function Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
     game.level = level -- FIXME wygeneruj level linii po 2-8 losowych klockow w losowych miejscach
     game.actionTimers = ActionTimers:new(speed)
 
-
+    self.scoring = Scoring:new()
     self.tetrominos = tetrominos
     self.currentTetromino = CurrentTetromino:new()
 
@@ -41,18 +42,18 @@ function Game:initializeTetrominos()
         x = (self.playfield.width - 4) / 2 + 1, -- TODO DRY
         y = 3
     }
-    self.currentTetromino:changeTetromino(self.tetrominos:get(tetrominoId), tetrominoStartPosition.x, tetrominoStartPosition.y)
+    local tetromino = self.tetrominos:get(tetrominoId)
+    self.currentTetromino:changeTetromino(tetromino, tetrominoStartPosition.x, tetrominoStartPosition.y)
 
     -- FIXME         -- self.nextTetromino = self.nextTetrominos[2]
     -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
-
-    end
+end
 
 function Game:update(dt)
+
     self.actionTimers:update(dt)
 
     if love.keyboard.isDown('left') then
-        -- FIXME how often can I move left/right
         self:moveLeft()
     elseif love.keyboard.isDown('right') then
         self:moveRight()
@@ -86,6 +87,7 @@ function Game:softDrop()
     if self.actionTimers:canPerformSoftDrop() then
 
         if self:canMoveTo(self.currentTetromino, 0, 1, 0) then
+            self.scoring:addScoreForSoftDrop()
             self.currentTetromino.y = self.currentTetromino.y + 1
         else
             -- block cannot move down - so lock it
