@@ -68,7 +68,7 @@ function Game:update(dt)
     if love.keyboard.isDown('up') then
         self:rotateClockWise()
     end
-    
+
     if self.actionTimers:canUpdateGravity() then
         self:processGravity()
     end
@@ -101,9 +101,9 @@ function Game:softDrop()
 end
 
 function Game:hardDrop()
-    -- FIXME check borders - if any non zero block from this tetronimo is out of the edge
-    -- FIXME lock the tetromino
-    self.currentTetromino.y = 0 -- FIXME find this position
+    -- FIXME find where it can drop
+    -- FIXME drop and lock - don allow for any movement
+    -- FIXME self.scoring:addScoreForHardDrop()
 end
 
 function Game:rotateClockWise()
