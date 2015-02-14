@@ -69,10 +69,6 @@ function processMainMenu(key)
 
         local game = buildGame(1, 3)
 
-        -- FIXME remove
-        local debugModule = DebugModule:new()
-        debugModule:fillPlayfieldWithGarbage(game)
-
         application:playGame(game)
     end
 end
