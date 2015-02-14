@@ -29,14 +29,39 @@ end
 function TetrominoGenerator:ensureWeHaveTetrominosInQueue()
 
     if table.getn(self.tetrominoQueue) < 7 then
-        -- push Tetrominos at the end
-        -- FIXME randomixe tetrominos
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_I)
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_J)
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_L)
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_O)
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_S)
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_T)
-        table.insert(self.tetrominoQueue, Tetromino.TETROMINO_Z)
+
+        local newTetrominos = {}
+        table.insert(newTetrominos, Tetromino.TETROMINO_I)
+        table.insert(newTetrominos, Tetromino.TETROMINO_J)
+        table.insert(newTetrominos, Tetromino.TETROMINO_L)
+        table.insert(newTetrominos, Tetromino.TETROMINO_O)
+        table.insert(newTetrominos, Tetromino.TETROMINO_S)
+        table.insert(newTetrominos, Tetromino.TETROMINO_T)
+        table.insert(newTetrominos, Tetromino.TETROMINO_Z)
+
+        newTetrominos = self:shuffleTable(newTetrominos)
+
+        for k, t in pairs(newTetrominos) do
+            -- push new Tetrominos at the end
+            table.insert(self.tetrominoQueue, t)
+        end
     end
+end
+
+function TetrominoGenerator:shuffleTable(aTable)
+    local itemCount = #aTable
+
+    for j = 1, 10 do
+        for i = 1, itemCount do
+            local index_1 = math.random(1, itemCount)
+            local index_2 = math.random(1, itemCount)
+
+            if index_1 ~= index_2 then
+                -- swap items
+                aTable[index_1], aTable[index_2] = aTable[index_2], aTable[index_1]
+            end
+        end
+    end
+
+    return aTable
 end
