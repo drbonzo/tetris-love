@@ -18,6 +18,10 @@ function GameBuilder:buildGame(width, height, speed, level)
     local x
     local y
 
+    if speed < 1 then
+        speed = 1
+    end
+
     if level > 0 then
         -- generating `level` levels of
         for l = 1, level do
