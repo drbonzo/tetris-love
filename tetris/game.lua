@@ -9,7 +9,7 @@ Game = {
     actionTimers = nil
 }
 
-function Game:new(playfield, tetrominoGenerator, speed, level)
+function Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
     local game = {}
     setmetatable(game, self)
     self.__index = self
@@ -21,7 +21,7 @@ function Game:new(playfield, tetrominoGenerator, speed, level)
     game.actionTimers = ActionTimers:new(speed)
 
 
-    self.tetrominos = Tetrominos:buildTetrominos() -- FIXME DI do game
+    self.tetrominos = tetrominos
     self.currentTetromino = CurrentTetromino:new()
 
 

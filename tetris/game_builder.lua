@@ -33,8 +33,8 @@ function GameBuilder:buildGame(width, height, speed, level)
     end
 
     local tetrominoGenerator = TetrominoGenerator:new()
-    local game = Game:new(playfield, tetrominoGenerator, speed, level)
-
+    local tetrominos = Tetrominos:buildTetrominos()
+    local game = Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
 
     return game
 end
