@@ -2,27 +2,27 @@ Game = {
     speed = 1,
     level = 0,
     playfield = nil,
+    tetrominoGenerator = nil,
     currentTetromino = nil,
     nextTetromino = nil,
-    nextTetrominos = {},
     tetrominos = nil,
     actionTimers = nil
 }
 
-function Game:new(playfield, speed, level)
+function Game:new(playfield, tetrominoGenerator, speed, level)
     local game = {}
     setmetatable(game, self)
     self.__index = self
 
     game.playfield = playfield
+    game.tetrominoGenerator = tetrominoGenerator
     game.speed = speed
     game.level = level -- FIXME wygeneruj level linii po 2-8 losowych klockow w losowych miejscach
     game.actionTimers = ActionTimers:new(speed)
 
 
-    self.tetrominos = Tetrominos:buildTetrominos()
+    self.tetrominos = Tetrominos:buildTetrominos() -- FIXME DI do game
     self.currentTetromino = CurrentTetromino:new()
-    -- FIXME remove: self.tetrominos:printTetromino(self.tetrominos.t1)
 
 
     return game
@@ -34,39 +34,19 @@ end
 
 function Game:initializeTetrominos()
 
-    if table.getn(self.nextTetrominos) < 7 then -- FIXME extract method
-        -- push Tetrominos at the end
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_I)
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_J)
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_L)
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_O)
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_S)
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_T)
-        table.insert(self.nextTetrominos, Tetromino.TETROMINO_Z)
+    local tetrominoId = self.tetrominoGenerator:getAndRemoveFirstTetrominoId()
+    -- put it at the middle
+    -- as we count from 1 (not from 0): add 1
+    local tetrominoStartPosition = {
+        x = (self.playfield.width - 4) / 2 + 1, -- TODO DRY
+        y = 3
+    }
+    self.currentTetromino:changeTetromino(self.tetrominos:get(tetrominoId), tetrominoStartPosition.x, tetrominoStartPosition.y)
+
+    -- FIXME         -- self.nextTetromino = self.nextTetrominos[2]
+    -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
+
     end
-
-    if not self.currentTetromino.tetromino then -- FIXME method
-
-        local tetrominoId = self.nextTetrominos[1]
-        local tetrominoStartPosition = {
-            x = 0,
-            y = 0
-        }
-
-        tetrominoStartPosition.y = 3 -- 3rd from the top
-
-        -- put it at the middle
-        -- as we count from 1 (not from 0): add 1
-        tetrominoStartPosition.x = (self.playfield.width - 4) / 2 + 1
-        self.currentTetromino:changeTetromino(self.tetrominos:get(tetrominoId), tetrominoStartPosition.x, tetrominoStartPosition.y) -- FIXME setup position
-
-        -- self.nextTetromino = self.nextTetrominos[2]
-        -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
-
-        -- remove used tetromino
-        table.remove(self.nextTetrominos, 1)
-    end
-end
 
 function Game:update(dt)
     self.actionTimers:update(dt)
