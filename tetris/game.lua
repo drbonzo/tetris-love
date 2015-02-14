@@ -109,7 +109,7 @@ function Game:softDrop()
             self.currentTetromino.y = self.currentTetromino.y + 1
         else
             -- block cannot move down - so lock it
-            self:lockTetromino()
+            self.actionTimers:forceGravity()
         end
     end
 end

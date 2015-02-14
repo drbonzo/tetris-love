@@ -46,6 +46,13 @@ function ActionTimers:canUpdateGravity()
     end
 end
 
+function ActionTimers:forceGravity()
+    -- sets gravity timer so that next gravity update check will return true
+    if self.gravityTimeSinceStart < self.gravityDelay then
+        self.gravityTimeSinceStart = self.gravityDelay
+    end
+end
+
 function ActionTimers:canPerformMove()
     if self.movementTimeSinceStart > self.movementDelay then
         self.movementTimeSinceStart = 0
