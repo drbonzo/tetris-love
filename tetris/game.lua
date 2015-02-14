@@ -57,14 +57,18 @@ function Game:update(dt)
         self:moveLeft()
     elseif love.keyboard.isDown('right') then
         self:moveRight()
-    elseif love.keyboard.isDown('down') then
+    end
+
+    if love.keyboard.isDown('down') then
         self:softDrop()
-    elseif love.keyboard.isDown('up') then
-        self:rotateClockWise()
     elseif love.keyboard.isDown(' ') then
         self:hardDrop()
     end
 
+    if love.keyboard.isDown('up') then
+        self:rotateClockWise()
+    end
+    
     if self.actionTimers:canUpdateGravity() then
         self:processGravity()
     end

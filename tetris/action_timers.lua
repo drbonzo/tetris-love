@@ -24,9 +24,8 @@ function ActionTimers:changeSpeed(speed)
     -- speed 5 => gravityDelay = 1/5 = 0.2s
     self.gravityDelay = 1.0 / speed
 
-    local actionDelayRatio = 1 / 25
-    self.movementDelay = actionDelayRatio
-    self.rotationDelay = 1 / 10
+    self.movementDelay = 1 / 20
+    self.rotationDelay = 1 / 5
     self.softDropDelay = 1 / 50
 end
 
