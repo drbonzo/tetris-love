@@ -26,10 +26,15 @@ end
 
 -- @param game {Game}
 function GameDisplayer:displayGame(game)
+    self:displayPlayfield(game.playfield)
+    self:displayCurrentTetromino(game.currentTetromino)
+    self:displayScore(game)
+end
+
+function GameDisplayer:displayPlayfield(playfield)
 
     love.graphics.setLineStyle('smooth')
 
-    local playfield = game.playfield
     local playfieldHeight = playfield.height
     local playfieldWidth = playfield.width
 
@@ -62,12 +67,16 @@ function GameDisplayer:displayGame(game)
             end
         end
     end
+end
+
+function GameDisplayer:displayCurrentTetromino(currentTetromino)
 
     -- current block
 
-    local currentTetromino = game.currentTetromino
     local brickX
     local brickY
+    local block
+    local color
     for r = 1, 4 do
         for c = 1, 4 do
 
@@ -87,10 +96,12 @@ function GameDisplayer:displayGame(game)
             end
         end
     end
+end
 
+function GameDisplayer:displayScore(game)
     -- print score
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print("Score: " .. game.scoring:getScore(), (cols + 2) * self.blockSize + 10, self.blockSize)
+    love.graphics.print("Score: " .. game.scoring:getScore(), 300, self.blockSize)
 end
 
 
@@ -128,5 +139,5 @@ end
 -- @param game {Game}
 function GameDisplayer:displayGameOverScreen(game)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print("GAME\nOVER\n\nScore: " .. game.scoring:getScore(), 400 + 10, self.blockSize)
+    love.graphics.print("GAME\nOVER\n\nScore: " .. game.scoring:getScore(), 300, self.blockSize)
 end
