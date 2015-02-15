@@ -29,12 +29,20 @@ function GameBuilder:buildGame(width, height, speed, level)
     if level > GameBuilder.MIN_LEVEL then
         -- generating `level` levels of
         for l = 1, level do
+
+            local blocksAddedInLine = 0
             for c = 1, width do
 
-                if math.random(1, 10) > 6 then -- 70% for block present
-                    x = c + 1
-                    y = height + 3 - l
-                    playfield.blocks[y][x] = Playfield.GARBAGE_BLOCK
+                -- prevent from filling full rows with garbage blocks
+                -- last column will statistically have less garbage - when all previous columns are filled, then last column is left empty
+                if blocksAddedInLine < width - 1 then
+                    if math.random(1, 10) > 6 then -- 70% for block present
+                        -- map virtual position to array position
+                        x = c + 1
+                        y = height + 3 - l
+                        playfield.blocks[y][x] = Playfield.GARBAGE_BLOCK
+                        blocksAddedInLine = blocksAddedInLine + 1
+                    end
                 end
             end
         end
