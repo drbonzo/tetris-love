@@ -164,6 +164,45 @@ end
 
 -- @param game {Game}
 function GameDisplayer:displayGameOverScreen(game)
+
+
+    local gameOverText = {
+        { 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1 },
+        { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0 },
+        { 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0 },
+        { 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0 },
+        { 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1 },
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0 },
+        { 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+        { 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 },
+        { 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+        { 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1 }
+    }
+
+    local row
+    local block
+    local x
+    local y
+
+    local color = self.colors[Tetromino.TETROMINO_O]
+    love.graphics.setColor(color[1], color[2], color[3])
+
+    for r = 1, table.getn(gameOverText) do
+
+        row = gameOverText[r]
+        for c = 1, table.getn(row) do
+            block = row[c]
+
+            if block == 1 then
+                x = c * self.blockSize
+                y = r * self.blockSize
+                love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize) -- TODO DRY block
+            end
+        end
+    end
+
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print("GAME\nOVER\n\nScore: " .. game.scoring:getScore(), 300, self.blockSize)
+    love.graphics.print("Score: " .. game.scoring:getScore(), 20, 280)
+    love.graphics.print("Press any key to continue", 20, 460)
 end
