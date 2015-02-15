@@ -7,7 +7,8 @@ Game = {
     nextTetromino = nil,
     tetrominos = nil,
     scoring = nil,
-    actionTimers = nil
+    actionTimers = nil,
+    isRunning = true
 }
 
 function Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
@@ -24,7 +25,7 @@ function Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
     self.scoring = Scoring:new()
     self.tetrominos = tetrominos
     self.currentTetromino = CurrentTetromino:new()
-
+    self.isRunning = true
 
     return game
 end
@@ -168,4 +169,14 @@ function Game:lockTetromino()
     local linesCleared = self.playfield:applyScoring()
     self.scoring:applyScoreForLinesCleared(linesCleared)
     self:pickNextTetrominos()
+
+    local newTetrominoCannotDrop = (self:canMoveTo(self.currentTetromino, 0, 1, 0) == false)
+
+    if newTetrominoCannotDrop then
+        self.isRunning = false
+    end
+end
+
+function Game:getIsRunning()
+    return self.isRunning
 end

@@ -42,6 +42,10 @@ function love.keypressed(key)
 
         processGame(key)
 
+    elseif application.state == ApplicationState.GAME_OVER then
+
+        processGameOver(key)
+
     elseif application.state == ApplicationState.PAUSED then
 
         processPauseMenu(key)
@@ -92,6 +96,9 @@ function processGame(key)
     end
 end
 
+function processGameOver(key)
+    application:endGame()
+end
 
 
 function love.draw()
@@ -109,6 +116,10 @@ function love.draw()
     elseif application.state == ApplicationState.PAUSED then
 
         drawPauseMenu()
+
+    elseif application.state == ApplicationState.GAME_OVER then
+
+        drawGameOverScreen(game)
 
     elseif application.state == ApplicationState.TERMINATED then
         -- nothing
@@ -133,6 +144,10 @@ end
 
 function drawGame(game)
     gameDisplayer:displayGame(game)
+end
+
+function drawGameOverScreen(game)
+    gameDisplayer:displayGameOverScreen(game)
 end
 
 function buildApplication()

@@ -24,6 +24,7 @@ function GameDisplayer:new()
     return gameDisplayer
 end
 
+-- @param game {Game}
 function GameDisplayer:displayGame(game)
 
     love.graphics.setLineStyle('smooth')
@@ -113,4 +114,11 @@ function GameDisplayer:displayBlock(blockY, blockX, red, green, blue)
     local x = blockOffsetX * self.blockSize
     local y = blockOffsetY * self.blockSize
     love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize)
+end
+
+-- @param game {Game}
+function GameDisplayer:displayGameOverScreen(game)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("GAME\nOVER\n\nScore: " .. game.scoring:getScore(), 400 + 10, self.blockSize)
+
 end

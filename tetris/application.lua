@@ -3,6 +3,7 @@ ApplicationState.INIT = 'INIT'
 ApplicationState.MENU = 'MENU'
 ApplicationState.PLAYING = 'PLAYING'
 ApplicationState.PAUSED = 'PAUSED'
+ApplicationState.GAME_OVER = 'GAME_OVER'
 ApplicationState.TERMINATED = 'TERMINATED'
 
 Application = {
@@ -59,13 +60,26 @@ end
 
 function Application:update(dt)
     if self.game then
-        self.game:update(dt)
+
+        if self.game:getIsRunning() then
+            self.game:update(dt)
+
+            if self.game:getIsRunning() then
+                -- game still running - OK
+            else
+                -- game may end inside that update()
+                print("GAME\nOVER");
+                self.state = ApplicationState.GAME_OVER
+            end
+        end
     end
 end
 
 -- INIT -> MENU
----- MENU -> PLAYING
------- PLAYING -> PAUSED
--------- PAUSED -> PLAYING
--------- PAUSED -> MENU
----- MENU -> TERMINATED
+-- -- MENU -> PLAYING
+-- ---- PLAYING -> PAUSED
+-- ------ PAUSED -> PLAYING
+-- ------ PAUSED -> MENU
+-- ---- PLAYING -> GAME_OVER
+-- ---- GAME_OVER -> MENU
+-- -- MENU -> TERMINATED
