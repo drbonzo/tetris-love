@@ -40,8 +40,8 @@ function Game:pickNextTetrominos()
     -- put it at the middle
     -- as we count from 1 (not from 0): add 1
     local tetrominoStartPosition = {
-        x = (self.playfield.width - 4) / 2 + 1, -- TODO DRY
-        y = 3
+        x = (self.playfield.width - 4) / 2 + 1 + 1, -- TODO DRY
+        y = 1
     }
     local tetromino = self.tetrominos:get(tetrominoId)
     self.currentTetromino:changeTetromino(tetromino, tetrominoStartPosition.x, tetrominoStartPosition.y)
