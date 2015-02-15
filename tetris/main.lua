@@ -87,7 +87,7 @@ function processMainMenu(key)
         end
 
         local gameBuilder = GameBuilder:new()
-        startLevel = GameBuilder:checkLevel(startLevel)
+        startLevel = gameBuilder:checkLevel(startLevel)
 
     elseif key == 's' then
         if love.keyboard.isDown('rshift') or love.keyboard.isDown('lshift') then
@@ -97,7 +97,7 @@ function processMainMenu(key)
         end
 
         local gameBuilder = GameBuilder:new()
-        startSpeed = GameBuilder:checkSpeed(startSpeed)
+        startSpeed = gameBuilder:checkSpeed(startSpeed)
     end
 end
 
