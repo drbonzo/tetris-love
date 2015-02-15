@@ -1,3 +1,5 @@
+LOVE_VERSION = 0.9.2
+
 run:
 	cd src && love .
 
@@ -15,10 +17,10 @@ build-linux: build/tetris.love
 build-windows: build-win32 build-win64
 
 build-win32: build/tetris.love
-	rm -rf build/love-0.9.2-win32 build/tetris-win32
+	rm -rf build/love-$(LOVE_VERSION)-win32 build/tetris-win32
 
-	unzip -q bin/love/love-0.9.2/love-0.9.2-win32.zip -d build/
-	mv build/love-0.9.2-win32 build/tetris-win32
+	unzip -q bin/love/love-$(LOVE_VERSION)/love-$(LOVE_VERSION)-win32.zip -d build/
+	mv build/love-$(LOVE_VERSION)-win32 build/tetris-win32
 
 	cat build/tetris-win32/love.exe build/tetris.love > build/tetris-win32/tetris.exe
 	rm build/tetris-win32/love.exe
@@ -27,10 +29,10 @@ build-win32: build/tetris.love
 	jar -cvMf build/tetris-win32.zip -C build tetris-win32
 
 build-win64:
-	rm -rf build/love-0.9.2-win64 build/tetris-win64
+	rm -rf build/love-$(LOVE_VERSION)-win64 build/tetris-win64
 
-	unzip -q bin/love/love-0.9.2/love-0.9.2-win64.zip -d build/
-	mv build/love-0.9.2-win64 build/tetris-win64
+	unzip -q bin/love/love-$(LOVE_VERSION)/love-$(LOVE_VERSION)-win64.zip -d build/
+	mv build/love-$(LOVE_VERSION)-win64 build/tetris-win64
 
 	cat build/tetris-win64/love.exe build/tetris.love > build/tetris-win64/tetris.exe
 	rm build/tetris-win64/love.exe
