@@ -132,6 +132,11 @@ function drawMainMenu()
     love.graphics.print("TETRIS", 10, 40)
     love.graphics.print("[S]tart", 10, 60)
     love.graphics.print("[Q]uit", 10, 80)
+
+    love.graphics.print("Controls", 10, 320)
+    love.graphics.print("Left, Right - move tetromino", 10, 340)
+    love.graphics.print("S, Up - rotate CW", 10, 360)
+    love.graphics.print("Space, Down - soft drop", 10, 380)
 end
 
 function drawPauseMenu()

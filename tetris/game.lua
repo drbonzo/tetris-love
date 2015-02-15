@@ -60,13 +60,13 @@ function Game:update(dt)
         self:moveRight()
     end
 
-    if love.keyboard.isDown('down') then
+    if love.keyboard.isDown(' ') or love.keyboard.isDown('down') then
         self:softDrop()
-    elseif love.keyboard.isDown(' ') then
+    elseif love.keyboard.isDown('d') then
         self:hardDrop()
     end
 
-    if love.keyboard.isDown('up') then
+    if love.keyboard.isDown('s') or love.keyboard.isDown('up') then
         self:rotateClockWise()
     end
 
