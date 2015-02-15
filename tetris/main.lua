@@ -13,7 +13,7 @@ require 'game_displayer'
 
 local application
 local gameDisplayer
-local startLevel = 15
+local startLevel = 0
 local startSpeed = 1
 
 function love.load()
