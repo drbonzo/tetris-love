@@ -13,7 +13,7 @@ require 'game_displayer'
 
 local application
 local gameDisplayer
-local startLevel = 0
+local startLevel = 15
 local startSpeed = 1
 
 function love.load()
@@ -24,7 +24,9 @@ function love.load()
     application:showMenu()
 
     love.graphics.setBackgroundColor(39, 40, 34) --set the background color to a nice blue
-    love.window.setMode(650, 650) --set the window dimensions to 650 by 650
+    -- width: 4 letters by 5 blocks + 3 letter spacing + 2 for margin = 25
+    -- height: 23 block lines + 2 for margin = 25
+    love.window.setMode((4 * 5 + 3 + 2) * 20, 25 * 20) --set the window dimensions to 500 x 500
 
     gameDisplayer = GameDisplayer:new()
 end
