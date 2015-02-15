@@ -1,4 +1,9 @@
-GameBuilder = {}
+GameBuilder = {
+    MIN_SPEED = 1,
+    MAX_SPEED = 10,
+    MIN_LEVEL = 0,
+    MAX_LEVEL = 15,
+}
 
 function GameBuilder:new()
 
@@ -18,11 +23,10 @@ function GameBuilder:buildGame(width, height, speed, level)
     local x
     local y
 
-    if speed < 1 then
-        speed = 1
-    end
+    speed = self:checkSpeed(speed)
+    level = self:checkLevel(level)
 
-    if level > 0 then
+    if level > GameBuilder.MIN_LEVEL then
         -- generating `level` levels of
         for l = 1, level do
             for c = 1, width do
@@ -41,4 +45,31 @@ function GameBuilder:buildGame(width, height, speed, level)
     local game = Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
 
     return game
+end
+
+function GameBuilder:checkSpeed(speed)
+
+    if speed < GameBuilder.MIN_SPEED then
+        speed = GameBuilder.MIN_SPEED
+    end
+
+    if speed > GameBuilder.MAX_SPEED then
+        speed = GameBuilder.MAX_SPEED
+    end
+
+    return speed
+end
+
+
+function GameBuilder:checkLevel(level)
+
+    if level < GameBuilder.MIN_LEVEL then
+        level = GameBuilder.MIN_LEVEL
+    end
+
+    if level > GameBuilder.MAX_LEVEL then
+        level = GameBuilder.MAX_LEVEL
+    end
+
+    return level
 end

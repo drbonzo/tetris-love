@@ -13,6 +13,8 @@ require 'game_displayer'
 
 local application
 local gameDisplayer
+local startLevel = 0
+local startSpeed = 1
 
 function love.load()
 
@@ -72,9 +74,30 @@ function processMainMenu(key)
 
     elseif key == 's' then
 
-        local game = buildGame(1, 3)
+        local game = buildGame(startSpeed, startLevel)
 
         application:playGame(game)
+
+    elseif key == 'l' then
+
+        if love.keyboard.isDown('rshift') or love.keyboard.isDown('lshift') then
+            startLevel = startLevel - 1
+        else
+            startLevel = startLevel + 1
+        end
+
+        local gameBuilder = GameBuilder:new()
+        startLevel = GameBuilder:checkLevel(startLevel)
+
+    elseif key == 's' then
+        if love.keyboard.isDown('rshift') or love.keyboard.isDown('lshift') then
+            startSpeed = startSpeed - 1
+        else
+            startSpeed = startSpeed + 1
+        end
+
+        local gameBuilder = GameBuilder:new()
+        startSpeed = GameBuilder:checkSpeed(startSpeed)
     end
 end
 
@@ -133,10 +156,19 @@ function drawMainMenu()
     love.graphics.print("[S]tart", 10, 60)
     love.graphics.print("[Q]uit", 10, 80)
 
-    love.graphics.print("Controls", 10, 320)
-    love.graphics.print("Left, Right - move tetromino", 10, 340)
-    love.graphics.print("S, Up - rotate CW", 10, 360)
-    love.graphics.print("Space, Down - soft drop", 10, 380)
+    local configurationRow = 120
+    love.graphics.print("LEVEL: " .. startLevel, 10, configurationRow + 0)
+    love.graphics.print("L: level + 1", 10, configurationRow + 20)
+    love.graphics.print("L+Shift: level - 1", 10, configurationRow + 40)
+    love.graphics.print("SPEED: " .. startSpeed, 10, configurationRow + 80)
+    love.graphics.print("S: speed + 1", 10, configurationRow + 100)
+    love.graphics.print("S+Shift: speed - 1", 10, configurationRow + 120)
+
+    local controlsRow = 300
+    love.graphics.print("Controls", 10, controlsRow + 0)
+    love.graphics.print("Left, Right - move tetromino", 10, controlsRow + 20)
+    love.graphics.print("S, Up - rotate CW", 10, controlsRow + 40)
+    love.graphics.print("Space, Down - soft drop", 10, controlsRow + 60)
 end
 
 function drawPauseMenu()
