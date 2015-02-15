@@ -44,7 +44,8 @@ function GameDisplayer:displayGame(game)
     -- FIXME drawing new playfield
     -- border
     love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle('line', offsetX - 1, offsetY - 1, cols * self.blockSize + 1, rows * self.blockSize + 1)
+    -- skip 2 top rows
+    love.graphics.rectangle('line', offsetX - 1, offsetY - 1, cols * self.blockSize + 1, (rows - 2) * self.blockSize + 1)
 
     -- blocks
     -- all these '- 1' because we have all indexes from 1, not from 0
@@ -101,6 +102,14 @@ end
 -- @param blue int
 function GameDisplayer:displayBlock(blockY, blockX, red, green, blue)
 
+    -- dont display blocks in vanishing zone
+    if blockY < 3 then
+        return
+    end
+
+    -- shift all graphics 2 blocks upwards
+    blockY = blockY - 2
+
     -- FIXME drawing playfield
     -- c and r are counted from 1, not 0
     local blockOffsetX = 1 + (blockX - 1)
@@ -120,5 +129,4 @@ end
 function GameDisplayer:displayGameOverScreen(game)
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("GAME\nOVER\n\nScore: " .. game.scoring:getScore(), 400 + 10, self.blockSize)
-
 end
