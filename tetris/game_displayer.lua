@@ -29,6 +29,7 @@ function GameDisplayer:displayGame(game)
     self:displayPlayfield(game.playfield)
     self:displayCurrentTetromino(game.currentTetromino)
     self:displayScore(game)
+    self:displayNextTetromino(game.nextTetrominoBlocks)
 end
 
 function GameDisplayer:displayPlayfield(playfield)
@@ -104,6 +105,31 @@ function GameDisplayer:displayScore(game)
     love.graphics.print("Score: " .. game.scoring:getScore(), 300, self.blockSize)
 end
 
+function GameDisplayer:displayNextTetromino(nextTetrominoBlocks)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Next: ", 300, 40)
+    love.graphics.rectangle('line', 300, 60, 4 * self.blockSize, 4 * self.blockSize)
+
+    local block
+    local color
+    local blockOffsetX = 300
+    local blockOffsetY = 60
+
+    for r = 1, 4 do
+        for c = 1, 4 do
+            block = nextTetrominoBlocks[r][c]
+
+            if block ~= Playfield.EMPTY_BLOCK then
+                color = self.colors[block]
+                love.graphics.setColor(color[1], color[2], color[3])
+
+                local x = blockOffsetX + ((c - 1) * self.blockSize)
+                local y = blockOffsetY + ((r - 1) * self.blockSize)
+                love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize) -- TODO DRY block
+            end
+        end
+    end
+end
 
 --
 -- @param brickY int - Y position of the block, first column has value 1
@@ -133,7 +159,7 @@ function GameDisplayer:displayBlock(blockY, blockX, red, green, blue)
     love.graphics.setColor(red, green, blue)
     local x = blockOffsetX * self.blockSize
     local y = blockOffsetY * self.blockSize
-    love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize)
+    love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize) -- TODO DRY block
 end
 
 -- @param game {Game}
