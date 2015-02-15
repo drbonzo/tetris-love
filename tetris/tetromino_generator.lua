@@ -13,17 +13,22 @@ function TetrominoGenerator:new()
     return tetrominoGenerator
 end
 
--- @return {integer}
+-- @return
 function TetrominoGenerator:getAndRemoveFirstTetrominoId()
 
     self:ensureWeHaveTetrominosInQueue()
 
     local firstTetrominoId = self.tetrominoQueue[1]
+    local secondTetrominoId = self.tetrominoQueue[2]
 
     -- remove first tetromino from queue
     table.remove(self.tetrominoQueue, 1)
 
-    return firstTetrominoId
+    local retval = {
+        currentId = firstTetrominoId,
+        nextId = secondTetrominoId
+    }
+    return retval
 end
 
 function TetrominoGenerator:ensureWeHaveTetrominosInQueue()

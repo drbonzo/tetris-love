@@ -1,13 +1,32 @@
 Game = {
     speed = 1,
     level = 0,
+
+    -- @var Playfield
     playfield = nil,
+
+    -- @var TetrominoGenerator
     tetrominoGenerator = nil,
+
+    -- @var CurrentTetrominos
     currentTetromino = nil,
-    nextTetromino = nil,
+
+    -- @var integer
+    nextTetrominoId = nil,
+
+    -- @var table
+    nextTetrominoBlocks = nil,
+
+    -- @var table
     tetrominos = nil,
+
+    -- @var Score
     scoring = nil,
+
+    -- @var ActionTimers
     actionTimers = nil,
+
+    -- @var boolean
     isRunning = true
 }
 
@@ -36,18 +55,20 @@ end
 
 function Game:pickNextTetrominos()
 
-    local tetrominoId = self.tetrominoGenerator:getAndRemoveFirstTetrominoId()
+    local nextTetrominoData = self.tetrominoGenerator:getAndRemoveFirstTetrominoId()
+    local currentTetrominoId = nextTetrominoData.currentId
     -- put it at the middle
     -- as we count from 1 (not from 0): add 1
     local tetrominoStartPosition = {
         x = (self.playfield.width - 4) / 2 + 1 + 1, -- TODO DRY
         y = 1
     }
-    local tetromino = self.tetrominos:get(tetrominoId)
+    local tetromino = self.tetrominos:get(currentTetrominoId)
     self.currentTetromino:changeTetromino(tetromino, tetrominoStartPosition.x, tetrominoStartPosition.y)
 
-    -- FIXME         -- self.nextTetromino = self.nextTetrominos[2]
-    -- self.nextTetrominoBlocks = self.tetrominos:get(self.nextTetromino)[1] -- always in first rotation
+    self.nextTetrominoId = nextTetrominoData.nextId
+    local nextTetromino = self.tetrominos:get(self.nextTetrominoId)
+    self.nextTetrominoBlocks = nextTetromino.blocks[1] -- always in first rotation
 end
 
 function Game:update(dt)
