@@ -12,3 +12,13 @@ Run
 
 
 [CHANGELOG](CHANGELOG.md)
+
+## Screenshots
+
+### Playfield
+
+![playfield](docs/playfield.png)
+
+### Main menu
+
+![main menu](docs/main_menu.png)
