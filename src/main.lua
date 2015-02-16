@@ -122,7 +122,9 @@ function processGame(key)
 end
 
 function processGameOver(key)
-    application:endGame()
+    if key == 'escape' or key == 'return' then
+        application:endGame()
+    end
 end
 
 
