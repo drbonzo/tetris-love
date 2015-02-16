@@ -9,7 +9,7 @@ ApplicationState.TERMINATED = 'TERMINATED'
 Application = {
     state = ApplicationState.INIT,
     game = nil,
-    VERSION = '0.3.0-DEV'
+    VERSION = '0.3.0'
 }
 
 function Application:new()
