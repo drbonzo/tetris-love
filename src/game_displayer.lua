@@ -204,5 +204,8 @@ function GameDisplayer:displayGameOverScreen(game)
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("Score: " .. game.scoring:getScore(), 20, 280)
+    love.graphics.print("Lines cleared: " .. game.scoring:getLinesCleared(), 20, 300)
+    love.graphics.print("Game duration: " .. game.scoring:getGameDuration() .. " seconds", 20, 320)
+    love.graphics.print("Start speed: " .. game.scoring:getStartSpeed() .. ", start level: " .. game.scoring:getStartLevel(), 20, 340)
     love.graphics.print("Press [ESC] or [ENTER] key to continue", 20, 460)
 end

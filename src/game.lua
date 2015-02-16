@@ -41,7 +41,7 @@ function Game:new(playfield, tetrominoGenerator, tetrominos, speed, level)
     game.level = level -- FIXME wygeneruj level linii po 2-8 losowych klockow w losowych miejscach
     game.actionTimers = ActionTimers:new(speed)
 
-    self.scoring = Scoring:new()
+    self.scoring = Scoring:new(os.time(), speed, level)
     self.tetrominos = tetrominos
     self.currentTetromino = CurrentTetromino:new()
     self.isRunning = true
@@ -195,6 +195,7 @@ function Game:lockTetromino()
 
     if newTetrominoCannotDrop then
         self.isRunning = false
+        self.scoring:endGame(os.time())
     end
 end
 
