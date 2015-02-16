@@ -162,6 +162,46 @@ function GameDisplayer:displayBlock(blockY, blockX, red, green, blue)
     love.graphics.rectangle('fill', x, y, self.blockSize, self.blockSize) -- TODO DRY block
 end
 
+function GameDisplayer:displayMainMenu(startLevel, startSpeed)
+
+    local mainMenuText = {
+        {0,0,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,0,0},
+        {0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,1,0,0,0},
+        {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,0,0,0,0},
+        {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0},
+        {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,0}
+    }
+
+    local color = self.colors[Tetromino.TETROMINO_O]
+    self:displayText(mainMenuText, color)
+
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Start: [ENTER]", 10, 260)
+    love.graphics.print("Quit: [Q]", 10, 280)
+
+    local configurationRow = 320
+    love.graphics.print("LEVEL: " .. startLevel, 10, configurationRow + 0)
+    love.graphics.print("+1 [L]", 10, configurationRow + 20)
+    love.graphics.print("-1 [L+Shift]", 10, configurationRow + 40)
+    love.graphics.print("SPEED: " .. startSpeed, 140, configurationRow + 0)
+    love.graphics.print("+1 S", 140, configurationRow + 20)
+    love.graphics.print("-1 S+Shift", 140, configurationRow + 40)
+
+    local controlsRow = 400
+    love.graphics.print("Controls", 10, controlsRow + 0)
+    love.graphics.print("Left, Right - move tetromino", 10, controlsRow + 20)
+    love.graphics.print("S, Up - rotate CW", 10, controlsRow + 40)
+    love.graphics.print("Space, Down - soft drop", 10, controlsRow + 60)
+
+end
+
 -- @param game {Game}
 function GameDisplayer:displayGameOverScreen(game)
 

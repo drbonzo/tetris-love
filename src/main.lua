@@ -155,24 +155,7 @@ end
 
 function drawMainMenu()
 
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.print("TETRIS", 10, 40)
-    love.graphics.print("Start: [ENTER]", 10, 60)
-    love.graphics.print("Quit: [Q]", 10, 80)
-
-    local configurationRow = 120
-    love.graphics.print("LEVEL: " .. startLevel, 10, configurationRow + 0)
-    love.graphics.print("+1 [L]", 10, configurationRow + 20)
-    love.graphics.print("-1 [L+Shift]", 10, configurationRow + 40)
-    love.graphics.print("SPEED: " .. startSpeed, 10, configurationRow + 80)
-    love.graphics.print("+1 S", 10, configurationRow + 100)
-    love.graphics.print("-1 S+Shift", 10, configurationRow + 120)
-
-    local controlsRow = 300
-    love.graphics.print("Controls", 10, controlsRow + 0)
-    love.graphics.print("Left, Right - move tetromino", 10, controlsRow + 20)
-    love.graphics.print("S, Up - rotate CW", 10, controlsRow + 40)
-    love.graphics.print("Space, Down - soft drop", 10, controlsRow + 60)
+    gameDisplayer:displayMainMenu(startLevel, startSpeed)
 end
 
 function drawPauseMenu()
