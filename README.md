@@ -15,10 +15,16 @@ Run
 
 ## Screenshots
 
+### Main menu
+
+![main menu](docs/main_menu.png)
+
 ### Playfield
 
 ![playfield](docs/playfield.png)
 
-### Main menu
 
-![main menu](docs/main_menu.png)
+### GameOver
+
+![game over](docs/game_over.png)
+
