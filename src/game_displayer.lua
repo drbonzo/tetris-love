@@ -180,17 +180,29 @@ function GameDisplayer:displayGameOverScreen(game)
         { 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1 }
     }
 
+    local color = self.colors[Tetromino.TETROMINO_O]
+    self:displayText(gameOverText, color)
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Score: " .. game.scoring:getScore(), 20, 280)
+    love.graphics.print("Lines cleared: " .. game.scoring:getLinesCleared(), 20, 300)
+    love.graphics.print("Game duration: " .. game.scoring:getGameDuration() .. " seconds", 20, 320)
+    love.graphics.print("Start speed: " .. game.scoring:getStartSpeed() .. ", start level: " .. game.scoring:getStartLevel(), 20, 340)
+    love.graphics.print("Press [ESC] or [ENTER] key to continue", 20, 460)
+end
+
+function GameDisplayer:displayText(textTable, color)
+
     local row
     local block
     local x
     local y
 
-    local color = self.colors[Tetromino.TETROMINO_O]
     love.graphics.setColor(color[1], color[2], color[3])
 
-    for r = 1, table.getn(gameOverText) do
+    for r = 1, table.getn(textTable) do
 
-        row = gameOverText[r]
+        row = textTable[r]
         for c = 1, table.getn(row) do
             block = row[c]
 
@@ -202,10 +214,4 @@ function GameDisplayer:displayGameOverScreen(game)
         end
     end
 
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.print("Score: " .. game.scoring:getScore(), 20, 280)
-    love.graphics.print("Lines cleared: " .. game.scoring:getLinesCleared(), 20, 300)
-    love.graphics.print("Game duration: " .. game.scoring:getGameDuration() .. " seconds", 20, 320)
-    love.graphics.print("Start speed: " .. game.scoring:getStartSpeed() .. ", start level: " .. game.scoring:getStartLevel(), 20, 340)
-    love.graphics.print("Press [ESC] or [ENTER] key to continue", 20, 460)
 end
