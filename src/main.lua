@@ -74,7 +74,7 @@ function processMainMenu(key)
         application:terminate()
         love.event.quit()
 
-    elseif key == 's' then
+    elseif key == 'return' then
 
         local game = buildGame(startSpeed, startLevel)
 
@@ -157,16 +157,16 @@ function drawMainMenu()
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("TETRIS", 10, 40)
-    love.graphics.print("[S]tart", 10, 60)
-    love.graphics.print("[Q]uit", 10, 80)
+    love.graphics.print("Start: [ENTER]", 10, 60)
+    love.graphics.print("Quit: [Q]", 10, 80)
 
     local configurationRow = 120
     love.graphics.print("LEVEL: " .. startLevel, 10, configurationRow + 0)
-    love.graphics.print("L: level + 1", 10, configurationRow + 20)
-    love.graphics.print("L+Shift: level - 1", 10, configurationRow + 40)
+    love.graphics.print("+1 [L]", 10, configurationRow + 20)
+    love.graphics.print("-1 [L+Shift]", 10, configurationRow + 40)
     love.graphics.print("SPEED: " .. startSpeed, 10, configurationRow + 80)
-    love.graphics.print("S: speed + 1", 10, configurationRow + 100)
-    love.graphics.print("S+Shift: speed - 1", 10, configurationRow + 120)
+    love.graphics.print("+1 S", 10, configurationRow + 100)
+    love.graphics.print("-1 S+Shift", 10, configurationRow + 120)
 
     local controlsRow = 300
     love.graphics.print("Controls", 10, controlsRow + 0)
