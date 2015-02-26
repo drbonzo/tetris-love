@@ -34,7 +34,6 @@ end
 
 function GameDisplayer:displayPlayfield(playfield)
 
-    love.graphics.setLineStyle('smooth')
 
     local playfieldHeight = playfield.height
     local playfieldWidth = playfield.width
@@ -47,15 +46,35 @@ function GameDisplayer:displayPlayfield(playfield)
 
     local rows = playfieldHeight + 2 + 1 -- TODO DRY
     local cols = playfieldWidth + 2 -- TODO DRY
+
     -- FIXME drawing new playfield
     -- border
     love.graphics.setColor(255, 255, 255)
     -- skip 2 top rows
+    love.graphics.setLineStyle('smooth')
     love.graphics.rectangle('line', offsetX - 1, offsetY - 1, cols * self.blockSize + 1, (rows - 2) * self.blockSize + 1)
+
+
+    -- grid -- TODO refactor
+    love.graphics.setLineStyle('rough')
+    love.graphics.setColor(255, 255, 255, 32)
+    for r = 1, rows do
+        for c = 1, cols do
+
+            if r >= 3 then
+                local blockOffsetX = 1 + (c - 1)
+                local blockOffsetY = 1 + (r - 3)
+                local x = blockOffsetX * self.blockSize
+                local y = blockOffsetY * self.blockSize
+                love.graphics.rectangle('line', x, y, self.blockSize, self.blockSize) -- TODO DRY block
+            end
+        end
+    end
+    love.graphics.setColor(255, 255, 255, 255) -- reset alpha
 
     -- blocks
     -- all these '- 1' because we have all indexes from 1, not from 0
-
+    love.graphics.setLineStyle('smooth')
     for r = 1, rows do
         for c = 1, cols do
 
@@ -199,7 +218,6 @@ function GameDisplayer:displayMainMenu(startLevel, startSpeed)
     love.graphics.print("Left, Right - move tetromino", 10, controlsRow + 20)
     love.graphics.print("S, Up - rotate CW", 10, controlsRow + 40)
     love.graphics.print("Space, Down - soft drop", 10, controlsRow + 60)
-
 end
 
 -- @param game {Game}
@@ -253,5 +271,4 @@ function GameDisplayer:displayText(textTable, color)
             end
         end
     end
-
 end
