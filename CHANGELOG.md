@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 - 2014-02-26
+
+* drawing grid on the playfield
+
 ## 0.3.0 - 2014-02-16
 
 * more scores on game over screen
