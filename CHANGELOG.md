@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1 - 2014-02-27
+
+* [FIX] game was still running even in PAUSE mode
+
 ## 0.4.0 - 2014-02-26
 
 * drawing grid on the playfield
