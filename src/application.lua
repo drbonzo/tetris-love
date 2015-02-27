@@ -60,7 +60,7 @@ function Application:endGame()
 end
 
 function Application:update(dt)
-    if self.game then
+    if self.game and self.state == ApplicationState.PLAYING then
 
         if self.game:getIsRunning() then
             self.game:update(dt)
